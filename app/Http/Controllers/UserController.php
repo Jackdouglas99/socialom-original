@@ -66,41 +66,49 @@ class UserController extends Controller
 
     public function postSaveAccount(Request $request)
     {
-        $this->validate($request, [
+        /*$this->validate($request, [
             'username' => 'required|max:50|unique:users',
             'email' => 'required|email|unique:users',
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:100',
             'password' => 'required|min:4'
-        ]);
+        ]);*/
+        //return response("Test 1");
         $user = Auth::user();
         $old_username = $user->username;
 
         $user->username = $request['username'];
-        $user->email = $request['email'];
         $user->first_name = $request['first_name'];
         $user->last_name = $request['last_name'];
+        $user->email = $request['email'];
         $user->password = bcrypt($request['password']);
         $user->update();
 
-        $file = $request->file('image');
-        $extension = $request->file('image')->extension();
-        $filename_profile = $request['username'] . '-' . $user->id . '-profile.'.$extension;
-        $filename_banner = $request['username'] . '-' . $user->id . '-banner.'.$extension;
-        $old_filename_profile = $old_username . '-' . $user->id . '-profile.'.$extension;
-        $old_filename_banner = $old_username . '-' . $user->id . '-banner.'.$extension;
-        $update = false;
+        /*$profile_file = $request->file('profile_image');
+        $banner_file = $request->file('banner_image');
+
+        $profile_extension = $request->file('profile_image')->extension();
+        $banner_extension = $request->file('banner_image')->extension();
+
+        $filename_profile = $request['username'] . '-' . $user->id . '-profile.'.$profile_extension;
+        $filename_banner = $request['username'] . '-' . $user->id . '-banner.'.$banner_extension;
+
+        $old_filename_profile = $old_username . '-' . $user->id . '-profile.'.$profile_extension;
+        $old_filename_banner = $old_username . '-' . $user->id . '-banner.'.$banner_extension;
+
+        $profile_update = false;
+        $banner_update = false;
 
         // Profile image
         if (Storage::disk('local')->has($filename_profile)) {
             $old_file = Storage::disk('local')->get($old_filename_profile);
             Storage::disk('local')->put($filename_profile, $old_file);
-            $update = true;
+            $profile_update = true;
         }
-        if ($file) {
-            Storage::disk('local')->put($filename_profile, File::get($file));
+        if ($profile_file) {
+            Storage::disk('local')->put($filename_profile, File::get($profile_file));
         }
-        if ($update && $old_filename_profile !== $filename_profile) {
+        if ($profile_update && $old_filename_profile !== $filename_profile) {
             Storage::delete($old_filename_profile);
         }
 
@@ -108,14 +116,14 @@ class UserController extends Controller
         if (Storage::disk('local')->has($filename_banner)) {
             $old_file = Storage::disk('local')->get($old_filename_banner);
             Storage::disk('local')->put($filename_banner, $old_file);
-            $update = true;
+            $banner_update = true;
         }
-        if ($file) {
-            Storage::disk('local')->put($filename_banner, File::get($file));
+        if ($banner_file) {
+            Storage::disk('local')->put($filename_banner, File::get($banner_file));
         }
-        if ($update && $old_filename_banner !== $filename_banner) {
+        if ($banner_update && $old_filename_banner !== $filename_banner) {
             Storage::delete($old_filename_banner);
-        }
+        }*/
 
         return redirect()->route('account');
     }

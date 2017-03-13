@@ -66,13 +66,13 @@ Route::get('/account', [
     'middleware' => 'auth'
 ]);
 
-Route::post('/upateaccount', [
+Route::post('/update-account', [
     'uses' => 'UserController@postSaveAccount',
     'as' => 'account.save',
     'middleware' => 'auth'
 ]);
 
-Route::get('/userimage/{filename}', [
+Route::get('/user-image/{filename}', [
     'uses' => 'UserController@getUserImage',
     'as' => 'account.image',
     'middleware' => 'auth'
