@@ -1,0 +1,17 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+### Added
+- 
+
+### Changed
+- Profile page to display the profile and banner image. (Currently disabled but functionality is there. - Place holders currently in place.)
+
+## 0.0.2 - 2017-03-13
+### Changed
+- Fixed the account settings page so that it acctuly submits when you click save.
+
+## 0.0.1 - 2017-03-12
+### Added
+- Added all code to gitlab.
