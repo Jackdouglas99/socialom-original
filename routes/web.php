@@ -67,8 +67,20 @@ Route::get('/account', [
 ]);
 
 Route::post('/update-account', [
-    'uses' => 'UserController@postSaveAccount',
-    'as' => 'account.save',
+    'uses' => 'UserController@postUpdateAccount',
+    'as' => 'account.update',
+    'middleware' => 'auth'
+]);
+
+Route::post('/update-image/profile', [
+    'uses' => 'UserController@postUpdateProfile',
+    'as' => 'profile.image',
+    'middleware' => 'auth'
+]);
+
+Route::post('/update-image/banner', [
+    'uses' => 'UserController@postUpdateBanner',
+    'as' => 'profile.banner',
     'middleware' => 'auth'
 ]);
 

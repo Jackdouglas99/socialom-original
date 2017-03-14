@@ -50,7 +50,7 @@ class UserController extends Controller
         if(Auth::attempt(['email' => $request['email1'], 'password' => $request['password1']])){
             return redirect()->route('dashboard');
         }
-        return redirect()->back();
+        return redirect()->back()->with(['message' => 'Incorrect email address or password']);
     }
     public function postLogout()
     {
@@ -64,42 +64,56 @@ class UserController extends Controller
         return view('account', ['user' => Auth::user()]);
     }
 
-    public function postSaveAccount(Request $request)
+    public function postUpdateAccount(Request $request)
     {
-        /*$this->validate($request, [
-            'username' => 'required|max:50|unique:users',
-            'email' => 'required|email|unique:users',
+        $this->validate($request, [
+            'username' => 'required|max:50',
+            'email' => 'required|email',
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:100',
             'password' => 'required|min:4'
-        ]);*/
-        //return response("Test 1");
+        ]);
         $user = Auth::user();
-        $old_username = $user->username;
 
         $user->username = $request['username'];
         $user->first_name = $request['first_name'];
         $user->last_name = $request['last_name'];
         $user->email = $request['email'];
         $user->password = bcrypt($request['password']);
-        $user->update();
+        $user->save();
 
-        /*$profile_file = $request->file('profile_image');
-        $banner_file = $request->file('banner_image');
-
+        return redirect()->route('account')->with(['message' => 'Your account has been successfully updated']);
+    }
+    
+    public function postUpdateBanner(Request $request)
+    {
+        $user = Auth::user();
+        $file = $request->file('banner_image');
+        $filename = $user->id . '-banner.jpg';
+        $old_filename =$user->id . '-banner.jpg';
+        $update = false;
+        if (Storage::disk('local')->has($old_filename)) {
+            $old_file = Storage::disk('local')->get($old_filename);
+            Storage::disk('local')->put($filename, $old_file);
+            $update = true;
+        }
+        if ($file) {
+            Storage::disk('local')->put($filename, File::get($file));
+        }
+        if ($update && $old_filename !== $filename) {
+            Storage::delete($old_filename);
+        }
+        return redirect()->route('account');
+    }
+    
+    public function postUpdateProfile(Request $request)
+    {
+        /*$user = Auth::user();
+        $profile_file = $request->file('profile_image');
         $profile_extension = $request->file('profile_image')->extension();
-        $banner_extension = $request->file('banner_image')->extension();
-
-        $filename_profile = $request['username'] . '-' . $user->id . '-profile.'.$profile_extension;
-        $filename_banner = $request['username'] . '-' . $user->id . '-banner.'.$banner_extension;
-
-        $old_filename_profile = $old_username . '-' . $user->id . '-profile.'.$profile_extension;
-        $old_filename_banner = $old_username . '-' . $user->id . '-banner.'.$banner_extension;
-
+        $filename_profile = $user->id . '-profile.'.$profile_extension;
+        $old_filename_profile = $user->id . '-profile.'.$profile_extension;
         $profile_update = false;
-        $banner_update = false;
-
-        // Profile image
         if (Storage::disk('local')->has($filename_profile)) {
             $old_file = Storage::disk('local')->get($old_filename_profile);
             Storage::disk('local')->put($filename_profile, $old_file);
@@ -110,23 +124,14 @@ class UserController extends Controller
         }
         if ($profile_update && $old_filename_profile !== $filename_profile) {
             Storage::delete($old_filename_profile);
-        }
-
-        // Banner Image
-        if (Storage::disk('local')->has($filename_banner)) {
-            $old_file = Storage::disk('local')->get($old_filename_banner);
-            Storage::disk('local')->put($filename_banner, $old_file);
-            $banner_update = true;
-        }
-        if ($banner_file) {
-            Storage::disk('local')->put($filename_banner, File::get($banner_file));
-        }
-        if ($banner_update && $old_filename_banner !== $filename_banner) {
-            Storage::delete($old_filename_banner);
         }*/
-
-        return redirect()->route('account');
+        $user = Auth::user();
+        $file = $request->file('profile_image');
+        $extention = File::extension($file);
+        $filename = $user->id.'-profile.'.$extention;
+        Image::make(Input::file('profile_image'))->resize(140, 140)->save($filename);
     }
+    
     public function getUserImage($filename)
     {
         $file = Storage::disk('local')->get($filename);

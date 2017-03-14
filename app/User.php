@@ -12,4 +12,5 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany('App\Post');
     }
+    protected $fillable = ['username', 'email', 'password', 'first_name', 'last_name'];
 }

@@ -17,8 +17,8 @@
             <form class="navbar-form navbar-right" action="{{route('signin')}}" method="post">
                 {{csrf_field()}}
                 <div class="form-group">
-                    <input type="text" value="{{Request::old('email1')}}" name="email1" class="form-control" placeholder="email">
-                    <input type="password" value="{{Request::old('password1')}}" name="password1" class="form-control" placeholder="Password">
+                    <input type="text" value="{{Request::old('email1')}}" name="email1" class="form-control {{$errors->has('username1') ? 'has-error' : ''}}" placeholder="email">
+                    <input type="password" value="{{Request::old('password1')}}" name="password1" class="form-control {{$errors->has('password1') ? 'has-error' : ''}}" placeholder="Password">
                 </div>
                 <button type="submit" class="btn btn-primary" name="login">Login</button>
             </form>
@@ -28,7 +28,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->first_name}} {{Auth::user()->last_name}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{route('profile', Auth::user()->username)}}">Profile</a></li>
-                            <li class="disabled"><a href="{{route('account')}}">Account</a></li>
+                            <li><a href="{{route('account')}}">Account</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{route('logout')}}">Logout</a></li>
                         </ul>
