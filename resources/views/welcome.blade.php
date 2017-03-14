@@ -1,4 +1,8 @@
-
+@if(Auth::check())
+    <script type="text/javascript">
+        window.location = "{{ route('dashboard') }}";//here double curly bracket
+    </script>
+@endif
 @extends('layouts.master')
 
 @section('title')
