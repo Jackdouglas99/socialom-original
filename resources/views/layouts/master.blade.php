@@ -12,6 +12,6 @@
 
         <script src="https://cdn.jackdouglas.co.uk/jquery-3.1.1.min.js"></script>
         <script src="https://cdn.jackdouglas.co.uk/bootstrap-3.3.7/js/bootstrap.js"></script>
-        <script src="{{URL::to('src/js/app.js')}}"></script>
+        <script src="{{ asset('src/js/app.js') }}"></script>
     </body>
 </html>
