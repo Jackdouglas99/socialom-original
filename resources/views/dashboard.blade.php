@@ -22,6 +22,7 @@ Dashboard
                 <li role="presentation" class="active"><a>News Feed</a></li>
                 <li role="presentation" class="disabled"><a>Messages</a></li>
             </ul>
+            <a href="" class="text-muted">Terms</a> - <a href="" class="text-muted">Privacy</a><p class="text-muted">&copy; Jack Douglas 2017</p>
         </div>
         <div class="col-md-8">
             <div class="panel panel-default">
