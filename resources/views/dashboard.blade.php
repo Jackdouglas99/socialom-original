@@ -55,8 +55,8 @@ Dashboard
                     </div>
                     <div class="panel-footer post">
                         <div class="interaction">
-                            <a href="#">Like</a>
-                            <a href="#">Dislike</a>
+                            <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a>
+                            <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike'  }}</a>
                             @if(Auth::user() == $post->user)
                                 <a href="#" class="edit">Edit</a>
                                 <a href="{{route('post.delete', ['post_id' => $post->id])}}">Delete</a>
@@ -92,5 +92,6 @@ Dashboard
     </div>
     <script>
         var token = "{{csrf_token()}}";
+        var urlLike = '{{ route('like') }}';
     </script>
 @endsection

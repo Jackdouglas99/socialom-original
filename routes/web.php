@@ -90,3 +90,9 @@ Route::get('/user-image/{filename}', [
     'as' => 'account.image',
     'middleware' => 'auth'
 ]);
+
+Route::post('/like', [
+    'uses' => 'PostController@postLikePost',
+    'as' => 'like',
+    'middleware' => 'auth'
+]);
