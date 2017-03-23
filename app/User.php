@@ -16,5 +16,9 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany('App\Like');
     }
+    public function comment()
+    {
+        return $this->hasMany('App\Comment');
+    }
     protected $fillable = ['username', 'email', 'password', 'first_name', 'last_name'];
 }

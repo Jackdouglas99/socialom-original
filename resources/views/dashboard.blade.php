@@ -56,13 +56,31 @@ Dashboard
                     <div class="panel-footer post">
                         <div class="interaction">
                             <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a>
-                            <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike'  }}</a>
+                            @if (!count($post->comments))
+                                <a role="button" data-toggle="collapse" href="#no-comments-{{$post->id}}" aria-expanded="false" aria-controls="no-comments-{{$post->id}}">Comment</a>
+                            @endif
                             @if(Auth::user() == $post->user)
                                 <a href="#" class="edit">Edit</a>
                                 <a href="{{route('post.delete', ['post_id' => $post->id])}}">Delete</a>
                             @endif
                         </div>
                     </div>
+                    @if (count($post->comments))
+                        @foreach($post->comments as $comment)
+                            <div class="panel-body">
+                                {{$comment->content}}
+                            </div>
+                            <div class="panel-footer">
+                                <input type="text" class="form-control" placeholder="Write a comment">
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="collapse" id="no-comments-{{$post->id}}">
+                            <div class="panel-footer">
+                                <input type="text" class="form-control" placeholder="Write a comment">
+                            </div>
+                        </div>
+                    @endif
                 </div>
             @endforeach
 
