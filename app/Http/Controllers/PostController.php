@@ -96,7 +96,7 @@ class PostController extends Controller
             'comment' => 'required|max:1000'
         ]);
         $comment = new Comment();
-        $comment->body = $request['comment'];
+        $comment->comment = $request['comment'];
         $message = "There was an error.";
         if($request->user()->comments()->save($comment)){
             $message = "Comment successfully created";
