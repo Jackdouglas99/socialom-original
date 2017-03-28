@@ -100,7 +100,7 @@ class PostController extends Controller
         $comment->post_id = $request['post_ID'];
         $comment->content = $request['comment'];
         $message = "There was an error.";
-        if($request->user()->comments()->save($comment)){
+        if($request->comments()->save($comment)){
             $message = "Comment successfully created";
         }
         return redirect()->route('dashboard')->with(['message' => $message]);
