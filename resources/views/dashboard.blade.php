@@ -68,7 +68,7 @@ Dashboard
                     @if (count($post->comments))
                         <ul class="list-group">
                             @foreach($post->comments as $comment)
-                                <li class="list-group-item">{{$comment->contnet}}</li>
+                                <li class="list-group-item">{{$comment->content}}</li>
                             @endforeach
                         </ul>
                         <div class="panel-footer">
