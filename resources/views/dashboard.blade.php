@@ -70,6 +70,7 @@ Dashboard
                             <div class="panel-body">
                                 {{$comment->content}}
                             </div>
+                            <hr>
                         @endforeach
                         <div class="panel-footer">
                             <form action="{{route('addcomment')}}" method="post">
