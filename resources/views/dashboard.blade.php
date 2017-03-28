@@ -71,13 +71,19 @@ Dashboard
                                 {{$comment->content}}
                             </div>
                             <div class="panel-footer">
-                                <input type="text" class="form-control" placeholder="Write a comment">
+                                <form action="" method="post">
+                                    <input type="hidden" value="{{$post->id}}" name="postID">
+                                    <input type="text" class="form-control" placeholder="Write a comment" name="comment">
+                                </form>
                             </div>
                         @endforeach
                     @else
                         <div class="collapse" id="no-comments-{{$post->id}}">
                             <div class="panel-footer">
-                                <input type="text" class="form-control" placeholder="Write a comment">
+                                <form action="" method="post">
+                                    <input type="hidden" value="{{$post->id}}" name="postID">
+                                    <input type="text" class="form-control" placeholder="Write a comment" name="comment">
+                                </form>
                             </div>
                         </div>
                     @endif
