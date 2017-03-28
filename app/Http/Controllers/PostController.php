@@ -90,9 +90,9 @@ class PostController extends Controller
         return null;
     }
     
-    public function postAddComment(Request $request)
+    public function postAddComment(Request $request, $post_id)
     {
-        return null;
+        return response($post_id);
     }
     }
 }
