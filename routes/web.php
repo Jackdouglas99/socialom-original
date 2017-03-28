@@ -97,7 +97,7 @@ Route::post('/like', [
     'middleware' => 'auth'
 ]);
 
-Route::post('/add-comment', [
+Route::post('/add-comment/to/{post_id}', [
     'uses' => 'PostController@postAddComment',
     'as' => 'addcomment',
     'middleware' => 'auth'
