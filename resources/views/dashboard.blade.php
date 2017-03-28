@@ -82,7 +82,7 @@ Dashboard
                             @endforeach
                         </ul>
                         <div class="panel-footer">
-                            <form action="{{route('addcomment')}}" method="post">
+                            <form action="{{route('addcomment')}}" method="post" style="margin-bottom: 0px; !important;">
                                 {{csrf_field()}}
                                 <input type="hidden" name="post_id" value="{{$post->id}}">
                                 <input type="text" class="form-control" placeholder="Write a comment" name="comment">
