@@ -68,7 +68,17 @@ Dashboard
                     @if (count($post->comments))
                         <ul class="list-group">
                             @foreach($post->comments as $comment)
-                                <li class="list-group-item">{{$comment->content}}</li>
+                                <li class="list-group-item">
+                                    @if($post->user->profile_img == NULL)
+                                        <img src="https://cdn.jackdouglas.co.uk/male-placehold.png" alt="" style="width: 30px; height: 30px; !important;">
+                                    @else
+                                    <img src="{{$post->user->profile_img}}" alt="Profile img" style="width: 30px; height: 30px; !important;">
+                                    @endif
+                                    <a href="{{route('profile', $comment->user->username)}}">
+                                        {{$comment->user->first_name}} {{$comment->user->last_name}}
+                                    </a>
+                                    {{$comment->content}}
+                                </li>
                             @endforeach
                         </ul>
                         <div class="panel-footer">
