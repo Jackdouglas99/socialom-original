@@ -66,12 +66,11 @@ Dashboard
                         </div>
                     </div>
                     @if (count($post->comments))
-                        @foreach($post->comments as $comment)
-                            <div class="panel-body">
-                                {{$comment->content}}
-                            </div>
-                            <hr>
-                        @endforeach
+                        <ul class="list-group">
+                            @foreach($post->comments as $comment)
+                                <li class="list-group-item">{{$comment->contnet}}</li>
+                            @endforeach
+                        </ul>
                         <div class="panel-footer">
                             <form action="{{route('addcomment')}}" method="post">
                                 {{csrf_field()}}
