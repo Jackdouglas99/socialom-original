@@ -89,4 +89,10 @@ class PostController extends Controller
         }
         return null;
     }
+    
+    public function postAddComment(Request $request)
+    {
+        return null;
+    }
+    }
 }
