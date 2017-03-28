@@ -92,6 +92,6 @@ class PostController extends Controller
     
     public function postAddComment(Request $request)
     {
-        return response($request);
+        return response($request->post_id. " " . $request->comment);
     }
 }
