@@ -92,6 +92,16 @@ class PostController extends Controller
     
     public function postAddComment(Request $request)
     {
-        return response($request->post_id. " " . $request->comment);
+        $this->validate($request, [
+            'comment' => 'required|max:1000'
+        ]);
+        $comment = new Comment();
+        $comment->body = $request['comment'];
+        $message = "There was an error.";
+        if($request->user()->comments()->save($comment)){
+            $message = "Comment successfully created";
+        }
+        return redirect()->route('dashboard')->with(['message' => $message]);
+        
     }
 }
