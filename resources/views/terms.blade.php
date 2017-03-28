@@ -7,6 +7,6 @@ Terms of service
 @section('content')
 
 	<h1>
-		The sites terms will be here
+		The sites terms will be here.
 	</h1>
 @endsection
