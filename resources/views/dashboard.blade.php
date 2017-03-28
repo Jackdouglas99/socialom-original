@@ -71,8 +71,7 @@ Dashboard
                                 {{$comment->content}}
                             </div>
                             <div class="panel-footer">
-                                <form action="" method="post">
-                                    <input type="hidden" value="{{$post->id}}" name="postID">
+                                <form action="{{route('addcomment', ['post_id' => $post->id])}}" method="post">
                                     <input type="text" class="form-control" placeholder="Write a comment" name="comment">
                                 </form>
                             </div>
@@ -80,7 +79,7 @@ Dashboard
                     @else
                         <div class="collapse" id="no-comments-{{$post->id}}">
                             <div class="panel-footer">
-                                <form action="" method="post">
+                                <form action="{{route('addcomment', ['post_id' => $post->id])}}" method="post">
                                     <input type="hidden" value="{{$post->id}}" name="postID">
                                     <input type="text" class="form-control" placeholder="Write a comment" name="comment">
                                 </form>
