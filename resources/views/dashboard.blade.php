@@ -72,6 +72,7 @@ Dashboard
                             </div>
                             <div class="panel-footer">
                                 <form action="{{route('addcomment', ['post_id' => $post->id])}}" method="post">
+                                    {{csrf_field()}}
                                     <input type="text" class="form-control" placeholder="Write a comment" name="comment">
                                 </form>
                             </div>
@@ -80,7 +81,7 @@ Dashboard
                         <div class="collapse" id="no-comments-{{$post->id}}">
                             <div class="panel-footer">
                                 <form action="{{route('addcomment', ['post_id' => $post->id])}}" method="post">
-                                    <input type="hidden" value="{{$post->id}}" name="postID">
+                                    {{csrf_field()}}
                                     <input type="text" class="form-control" placeholder="Write a comment" name="comment">
                                 </form>
                             </div>
