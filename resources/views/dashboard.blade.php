@@ -70,14 +70,14 @@ Dashboard
                             <div class="panel-body">
                                 {{$comment->content}}
                             </div>
-                            <div class="panel-footer">
-                                <form action="{{route('addcomment')}}" method="post">
-                                    {{csrf_field()}}
-                                    <input type="hidden" name="post_id" value="{{$post->id}}">
-                                    <input type="text" class="form-control" placeholder="Write a comment" name="comment">
-                                </form>
-                            </div>
                         @endforeach
+                        <div class="panel-footer">
+                            <form action="{{route('addcomment')}}" method="post">
+                                {{csrf_field()}}
+                                <input type="hidden" name="post_id" value="{{$post->id}}">
+                                <input type="text" class="form-control" placeholder="Write a comment" name="comment">
+                            </form>
+                        </div>
                     @else
                         <div class="collapse" id="no-comments-{{$post->id}}">
                             <div class="panel-footer">
