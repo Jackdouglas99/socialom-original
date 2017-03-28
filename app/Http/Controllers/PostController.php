@@ -97,7 +97,7 @@ class PostController extends Controller
         ]);
         $comment = new Comment();
         $comment->user_id = Auth::user()->id;
-        $comment->post_id = $request['post_ID'];
+        $comment->post_id = $request['post_id'];
         $comment->content = $request['comment'];
         $message = "There was an error.";
         if($request->user()->comment()->save($comment)){
