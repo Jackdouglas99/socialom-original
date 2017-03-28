@@ -94,5 +94,4 @@ class PostController extends Controller
     {
         return response($post_id);
     }
-    }
 }
