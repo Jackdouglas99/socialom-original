@@ -84,7 +84,8 @@ class UserController extends Controller
 
         return redirect()->route('account')->with(['message' => 'Your account has been successfully updated']);
     }
-    
+
+    // This function dose nothing :)
     public function postUpdateBanner(Request $request)
     {
         $user = Auth::user();
@@ -105,33 +106,16 @@ class UserController extends Controller
         }
         return redirect()->route('account');
     }
-    
+
     public function postUpdateProfile(Request $request)
     {
-        /*$user = Auth::user();
-        $profile_file = $request->file('profile_image');
-        $profile_extension = $request->file('profile_image')->extension();
-        $filename_profile = $user->id . '-profile.'.$profile_extension;
-        $old_filename_profile = $user->id . '-profile.'.$profile_extension;
-        $profile_update = false;
-        if (Storage::disk('local')->has($filename_profile)) {
-            $old_file = Storage::disk('local')->get($old_filename_profile);
-            Storage::disk('local')->put($filename_profile, $old_file);
-            $profile_update = true;
-        }
-        if ($profile_file) {
-            Storage::disk('local')->put($filename_profile, File::get($profile_file));
-        }
-        if ($profile_update && $old_filename_profile !== $filename_profile) {
-            Storage::delete($old_filename_profile);
-        }*/
         $user = Auth::user();
         $file = $request->file('profile_image');
         $extention = File::extension($file);
         $filename = $user->id.'-profile.'.$extention;
         Image::make(Input::file('profile_image'))->resize(140, 140)->save($filename);
     }
-    
+
     public function getUserImage($filename)
     {
         $file = Storage::disk('local')->get($filename);

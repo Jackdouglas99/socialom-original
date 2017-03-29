@@ -89,7 +89,7 @@ class PostController extends Controller
         }
         return null;
     }
-    
+
     public function postAddComment(Request $request)
     {
         $this->validate($request, [
@@ -104,6 +104,6 @@ class PostController extends Controller
             $message = "Comment successfully created";
         }
         return redirect()->route('dashboard')->with(['message' => $message]);
-        
+
     }
 }

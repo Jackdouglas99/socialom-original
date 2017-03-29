@@ -75,7 +75,7 @@
                         @if($post->user->profile_img == NULL)
                             <img src="https://cdn.jackdouglas.co.uk/male-placehold.png" alt="" style="width: 30px; height: 30px; !important;">
                         @else
-                            <img src="{{$post->user->profile_img}}" alt="Profile img" style="width: 30px; height: 30px; !important;">
+                          <img src="{{$post->user->profile_img}}" alt="Profile img" style="width: 30px; height: 30px; !important;">
                         @endif
                         <a href="{{route('profile', $post->user->username)}}">
                             {{$post->user->first_name}} {{$post->user->last_name}}
@@ -85,19 +85,55 @@
                     </div>
                     <div class="panel-body" id="postText">
                         <p class="postContent">
-                            {{$post->body}}
+                          {{$post->body}}
                         </p>
                     </div>
                     <div class="panel-footer post">
                         <div class="interaction">
-                            <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a> |
-                            <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike'  }}</a>
+                            <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a>
+                            @if (!count($post->comments))
+                                <a role="button" data-toggle="collapse" href="#no-comments-{{$post->id}}" aria-expanded="false" aria-controls="no-comments-{{$post->id}}">Comment</a>
+                            @endif
                             @if(Auth::user() == $post->user)
                                 <a href="#" class="edit">Edit</a>
                                 <a href="{{route('post.delete', ['post_id' => $post->id])}}">Delete</a>
                             @endif
                         </div>
                     </div>
+                    @if (count($post->comments))
+                        <ul class="list-group">
+                            @foreach($post->comments as $comment)
+                                <li class="list-group-item">
+                                    @if($post->user->profile_img == NULL)
+                                        <img src="https://cdn.jackdouglas.co.uk/male-placehold.png" alt="" style="width: 30px; height: 30px; !important;">
+                                    @else
+                                    <img src="{{$post->user->profile_img}}" alt="Profile img" style="width: 30px; height: 30px; !important;">
+                                    @endif
+                                    <a href="{{route('profile', $comment->user->username)}}">
+                                        {{$comment->user->first_name}} {{$comment->user->last_name}}
+                                    </a>
+                                    {{$comment->content}}
+                                </li>
+                            @endforeach
+                        </ul>
+                        <div class="panel-footer">
+                            <form action="{{route('addcomment')}}" method="post" style="margin-bottom: 0px; !important;">
+                                {{csrf_field()}}
+                                <input type="hidden" name="post_id" value="{{$post->id}}">
+                                <input type="text" class="form-control" placeholder="Write a comment" name="comment">
+                            </form>
+                        </div>
+                    @else
+                        <div class="collapse" id="no-comments-{{$post->id}}">
+                            <div class="panel-footer">
+                                <form action="{{route('addcomment')}}" method="post">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="post_id" value="{{$post->id}}">
+                                    <input type="text" class="form-control" placeholder="Write a comment" name="comment">
+                                </form>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>
