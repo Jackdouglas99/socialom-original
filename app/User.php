@@ -20,5 +20,11 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany('App\Comment');
     }
+
+    public function friend()
+    {
+        return $this->hasMany('App\Friend');
+    }
+
     protected $fillable = ['username', 'email', 'password', 'first_name', 'last_name'];
 }

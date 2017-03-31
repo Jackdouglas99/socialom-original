@@ -48,6 +48,49 @@
             <i class="fa fa-check" aria-hidden="true" data-toggle="tooltip" title="This user is verified."></i>
         </h1>
     </div><br>
+    @if($user->id != Auth::user()->id)
+      @foreach($friendRequest as $fr)
+        @if($fr->uid1 =! Auth::user()->id || $fr->uid2 =! Auth::user()->id)
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Do you know {{$user->first_name}}
+            </div>
+            <div class="panel-body">
+              <form action="{{route('add.friend')}}" method="post" class="form-inline">
+                  @if($user->gender == 0)
+                    To see what she shares with friends, Send her a friend request.
+                  @else
+                    To see what he shares with friends, Send him a friend request.
+                  @endif
+                  {{csrf_field()}}
+                  <input type="hidden" name="uid2" value="{{$user->id}}">
+                  <button type="submit" name="add-friend" class="btn btn-sm btn-success pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Add Friend
+                </button>
+              </form>
+            </div>
+          </div>
+        @else
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Do you know {{$user->first_name}}
+            </div>
+            <div class="panel-body">
+              <form action="{{route('add.friend')}}" method="post" class="form-inline">
+                  @if($user->gender == 0)
+                    To see what she shares with friends, Send her a friend request.
+                  @else
+                    To see what he shares with friends, Send him a friend request.
+                  @endif
+                  {{csrf_field()}}
+                  <input type="hidden" name="uid2" value="{{$user->id}}">
+                  <button type="submit" name="cancel-friend" class="btn btn-sm btn-danger pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Friend Request Sent
+                </button>
+              </form>
+            </div>
+          </div>
+        @endif
+      @endforeach
+    @endif
     <div class="row">
         <div class="col-md-4">
             <div class="panel panel-default">

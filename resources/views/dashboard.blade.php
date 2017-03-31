@@ -10,7 +10,7 @@ Dashboard
         <div class="col-md-4">
             <ul class="nav nav-pills nav-stacked nav-fixed-top">
                 <li role="presentation">
-                    <a href="/">
+                    <a href="{{route('profile', Auth::user()->username)}}">
                         @if(Auth::user()->profile_img == NULL)
                             <img src="https://cdn.jackdouglas.co.uk/male-placehold.png" alt="" style="width: 30px; height: 30px; !important;">
                         @else
@@ -22,7 +22,7 @@ Dashboard
                 <li role="presentation" class="active"><a>News Feed</a></li>
                 <li role="presentation" class="disabled"><a>Messages</a></li>
             </ul>
-            <a href="" class="text-muted">Terms</a> - <a href="" class="text-muted">Privacy</a><p class="text-muted">&copy; Jack Douglas 2017</p>
+            <a href="" class="text-muted">Terms</a> - <a href="" class="text-muted">Privacy</a><br><p class="text-muted">&copy; <a href="https://www.jackdouglas.co.uk" class="text-muted">Jack Douglas</a> 2017</p>
         </div>
         <div class="col-md-8">
             <div class="panel panel-default">

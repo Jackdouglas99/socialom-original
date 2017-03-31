@@ -49,7 +49,7 @@
                                 </div>
                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
-                                        <form method="post" action="{{route('profile.image')}}" enctype="multipart/form-data">
+                                        <form method="post" action="" enctype="multipart/form-data">
                                             {{csrf_field()}}
                                             <div class="alert alert-info">Your image must at least 120px X 120px and must be a .png, .jpg, .jpeg and no larger than 5MB.</div>
                                             <label for="profile_image">Profile Image</label>
@@ -76,7 +76,7 @@
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                     <div class="panel-body">
-                                        <form method="post" action="{{route('profile.banner')}}" enctype="multipart/form-data">
+                                        <form method="post" action="" enctype="multipart/form-data">
                                             {{csrf_field()}}
                                             <div class="alert alert-info">Your image must at least 1170px X 300px and must be a .png, .jpg, .jpeg and no larger than 5MB.</div>
                                             <label for="banner_image">Profile Banner</label>
