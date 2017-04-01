@@ -5,6 +5,7 @@ use App\Post;
 use App\User;
 use App\Like;
 use App\Comment;
+use App\Friend;
 use App\FriendRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,8 @@ class PostController extends Controller
         $user = User::where('username', $username)->first();
         $posts = Post::where('user_id', $user->id)->orderBy('updated_at', 'desc')->get();
         $friendRequest = FriendRequest::where('uid1', $user->id)->orwhere('uid2', $user->id)->get();
-        return view('profile', ['posts' => $posts, 'user' => $user, 'friendRequest' => $friendRequest]);
+        $friends = Friend::where('uid1', $user->id)->where('uid2', Auth::user()->id)->orwhere('uid2', $user->id)->where('uid1', Auth::user()->id)->get();
+        return view('profile', ['posts' => $posts, 'user' => $user, 'friendRequest' => $friendRequest, 'friends' => $friends]);
     }
 
     public function postCreatePost(Request $request)

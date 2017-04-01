@@ -52,7 +52,7 @@ class UserController extends Controller
         }
         return redirect()->back()->with(['message' => 'Incorrect email address or password']);
     }
-    public function postLogout()
+    public function getLogout()
     {
         Auth::logout();
 
