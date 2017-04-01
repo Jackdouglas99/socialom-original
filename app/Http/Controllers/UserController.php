@@ -85,6 +85,16 @@ class UserController extends Controller
         return redirect()->route('account')->with(['message' => 'Your account has been successfully updated']);
     }
 
+    public function postUpdateBio(Request $request)
+    {
+        $user = Auth::user();
+
+        $user->about = $request['content'];
+        if($user->save()){
+            return redirect()->route('profile', Auth::user()->username)->with(['message' => 'Your bio/about section has been successfully updated']);
+        }
+    }
+
     // This function dose nothing :)
     public function postUpdateBanner(Request $request)
     {

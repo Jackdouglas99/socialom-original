@@ -106,6 +106,13 @@
                 </div>
                 <div class="panel-body">
                     About:
+                    @if($user->about != null)
+                        {{$user->about}}
+                    @else
+                        @if($user->id == Auth::user()->id)
+                            To set your bio go to your account settings. Or <a href="{{route('account')}}">Click Here</a>
+                        @endif
+                    @endif
                 </div>
             </div>
         </div>

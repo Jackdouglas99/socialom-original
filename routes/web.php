@@ -78,6 +78,12 @@ Route::post('/addcomment', [
   'middleware' => 'auth'
 ]);
 
+Route::post('/update-bio', [
+    'uses' => 'UserController@postUpdateBio',
+    'as' => 'update.bio',
+    'middleware' => 'auth'
+]);
+
 // Friend Requests
 Route::post('/send-friend-request', [
   'uses' => 'FriendController@postSendRequest',

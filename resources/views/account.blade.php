@@ -103,11 +103,11 @@
                                 </div>
                                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                                     <div class="panel-body">
-                                        <form method="post" action="assets/functions.php" enctype="multipart/form-data">
-                                            <input name="userid" id="userid" type="hidden" value="6bf762210b95706561ee">
+                                        <form method="post" action="{{route('update.bio')}}">
+                                            {{csrf_field()}}
                                             <label for="about-txt">About section</label>
-                                            <textarea disabled id="about-txt" name="about-txt" class="form-control"></textarea><br>
-                                            <button type="submit" name="about-set" class="btn btn-primary">Save</button>
+                                            <textarea id="about-txt" name="content" class="form-control"></textarea><br>
+                                            <button type="submit" class="btn btn-primary">Save</button>
                                         </form>
                                     </div>
                                 </div>
