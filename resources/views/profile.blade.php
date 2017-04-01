@@ -49,47 +49,52 @@
         </h1>
     </div><br>
     @if($user->id != Auth::user()->id)
-      @foreach($friendRequest as $fr)
-        @if($fr->uid1 =! Auth::user()->id || $fr->uid2 =! Auth::user()->id)
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              Do you know {{$user->first_name}}
-            </div>
-            <div class="panel-body">
-              <form action="{{route('add.friend')}}" method="post" class="form-inline">
-                  @if($user->gender == 0)
-                    To see what she shares with friends, Send her a friend request.
-                  @else
-                    To see what he shares with friends, Send him a friend request.
-                  @endif
-                  {{csrf_field()}}
-                  <input type="hidden" name="uid2" value="{{$user->id}}">
-                  <button type="submit" name="add-friend" class="btn btn-sm btn-success pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Add Friend
-                </button>
-              </form>
-            </div>
-          </div>
+        @if(count($friendRequest))
+            @foreach($friendRequest as $fr)
+                @if($fr->uid1 == Auth::user()->id)
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Do you know {{$user->first_name}}</div>
+                        <div class="panel-body">
+                            <form action="{{route('cancel.friend.request')}}" method="post" class="form-inline">
+                                @if($user->gender == 0)
+                                    To see what she shares with friends, Send her a friend request.
+                                @else
+                                    To see what he shares with friends, Send him a friend request.
+                                @endif
+                                {{csrf_field()}}
+                                <input type="hidden" name="frid" value="{{$fr->id}}">
+                                <button type="submit" name="add-friend" class="btn btn-sm btn-danger pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Cancel Friend Request</button>
+                            </form>
+                        </div>
+                    </div>
+                @elseif($fr->uid2 == Auth::user()->id)
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Do you know {{$user->first_name}}</div>
+                        <div class="panel-body">
+                            {{$user->first_name}} has sent you a friend request. Do you know them?
+                            <a href="{{route('accept.friend.request', $fr->id)}}" class="btn btn-sm btn-success pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Accept Friend Request</a>
+                            <a href="{{route('decline.friend.request', $fr->id)}}" class="btn btn-sm btn-danger pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Decline Friend Request</a>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
         @else
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              Do you know {{$user->first_name}}
+            <div class="panel panel-default">
+                <div class="panel-heading">Do you know {{$user->first_name}}</div>
+                <div class="panel-body">
+                    <form action="{{route('send.friend.request')}}" method="post" class="form-inline">
+                        @if($user->gender == 0)
+                            To see what she shares with friends, Send her a friend request.
+                        @else
+                            To see what he shares with friends, Send him a friend request.
+                        @endif
+                        {{csrf_field()}}
+                        <input type="hidden" name="uid2" value="{{$user->id}}">
+                        <button type="submit" name="add-friend" class="btn btn-sm btn-success pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Send Friend Request</button>
+                    </form>
+                </div>
             </div>
-            <div class="panel-body">
-              <form action="{{route('add.friend')}}" method="post" class="form-inline">
-                  @if($user->gender == 0)
-                    To see what she shares with friends, Send her a friend request.
-                  @else
-                    To see what he shares with friends, Send him a friend request.
-                  @endif
-                  {{csrf_field()}}
-                  <input type="hidden" name="uid2" value="{{$user->id}}">
-                  <button type="submit" name="cancel-friend" class="btn btn-sm btn-danger pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Friend Request Sent
-                </button>
-              </form>
-            </div>
-          </div>
         @endif
-      @endforeach
     @endif
     <div class="row">
         <div class="col-md-4">

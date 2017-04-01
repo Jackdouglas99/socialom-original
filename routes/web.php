@@ -78,8 +78,24 @@ Route::post('/addcomment', [
   'middleware' => 'auth'
 ]);
 
-Route::post('/addFriend', [
-  'uses' => 'FriendController@postAddFriend',
-  'as' => 'add.friend',
+// Friend Requests
+Route::post('/send-friend-request', [
+  'uses' => 'FriendController@postSendRequest',
+  'as' => 'send.friend.request',
   'middleware' => 'auth'
+]);
+Route::post('/cancel-friend-request', [
+    'uses' => 'FriendController@postCancelRequest',
+    'as' => 'cancel.friend.request',
+    'middleware' => 'auth'
+]);
+Route::get('/accept-friend-request/{frid}', [
+    'uses' => 'FriendController@getAcceptRequest',
+    'as' => 'accept.friend.request',
+    'middleware' => 'auth'
+]);
+Route::get('/decline-friend-request/{frid}', [
+    'uses' => 'FriendController@getDeclineRequest',
+    'as' => 'decline.friend.request',
+    'middleware' => 'auth'
 ]);
