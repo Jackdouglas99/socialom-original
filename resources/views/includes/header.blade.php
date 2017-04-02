@@ -25,6 +25,31 @@
             @else
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-globe"></i>
+                            @if(count(\App\Notification::where('to', Auth::user()->id)->whereNull('read_at')->get()))
+                                <span class="badge">
+                                    {{count(\App\Notification::where('to', Auth::user()->id)->whereNull('read_at')->get())}}
+                                </span>
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu">
+                            @if(count(\App\Notification::where('to', Auth::user()->id)->whereNull('read_at')->get()))
+                                @foreach(\App\Notification::where('to', Auth::user()->id)->whereNull('read_at')->get() as $notif)
+                                    @if($notif->type == "like")
+                                        <li><a href="{{route('read.notification', $notif->id)}}">{{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Liked your post.</a></li>
+                                    @elseif($notif->type == "fRequest")
+                                        <li><a href="{{route('read.notification', $notif->id)}}">{{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Sent you a friend request.</a></li>
+                                    @elseif($notif->type == "fRequestAccept")
+                                        <li><a href="{{route('read.notification', $notif->id)}}">{{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Accepted your friend request.</a></li>
+                                    @endif
+                                @endforeach
+                            @else
+                                <li>You have no notifications</li>
+                            @endif
+                        </ul>
+                    </li>
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->first_name}} {{Auth::user()->last_name}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{route('profile', Auth::user()->username)}}">Profile</a></li>

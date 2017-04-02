@@ -7,6 +7,7 @@ use App\Like;
 use App\Comment;
 use App\Friend;
 use App\FriendRequest;
+use App\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,7 +49,7 @@ class PostController extends Controller
             return redirect()->route('dashboard');
         }
         $post->delete();
-        return redirect()->route('dashboard')->with(['message' => 'Successfully deleted!']);
+        return redirect()->back()->with(['message' => 'Successfully deleted!']);
     }
 
     public function postEditPost(Request $request)
@@ -62,36 +63,45 @@ class PostController extends Controller
         return response()->json(['new_body' => $post->body], 200);
     }
 
-    public function postLikePost(Request $request)
+    public function postLikePost($post_id)
     {
-        $post_id = $request['postId'];
-        $is_like = $request['isLike'] === 'true';
-        $update = false;
-        $post = Post::find($post_id);
-        if (!$post) {
-            return null;
-        }
-        $user = Auth::user();
-        $like = $user->likes()->where('post_id', $post_id)->first();
-        if ($like) {
-            $already_like = $like->like;
-            $update = true;
-            if ($already_like == $is_like) {
-                $like->delete();
-                return null;
+        // Like setup
+        $like = new Like();
+        $like->user_id = Auth::user()->id;
+        $like->post_id = $post_id;
+        $like->like = '1';
+
+        // Notification setup
+        $post = Post::where('id', $post_id)->first();
+        $notif = new Notification();
+        $notif->user_id = Auth::user()->id;
+        $notif->to = $post->user_id;
+        $notif->type = 'like';
+        $notif->data = $post_id;
+
+        if($like->save()){
+            if($post->user_id != Auth::user()->id) {
+                if ($notif->save()) {
+                    return redirect()->back();
+                } else {
+                    return redirect()->back()->with(['message' => 'There was an error please try again later']);
+                }
+            }else{
+                return redirect()->back();
             }
-        } else {
-            $like = new Like();
+        }else{
+            return redirect()->back()->with(['message' => 'There was an error please try again later']);
         }
-        $like->like = $is_like;
-        $like->user_id = $user->id;
-        $like->post_id = $post->id;
-        if ($update) {
-            $like->update();
-        } else {
-            $like->save();
+    }
+
+    public function postUnLikePost($post_id)
+    {
+        $like = Like::where('post_id', $post_id)->where('user_id', Auth::user()->id)->first();
+        if($like->delete()){
+            return redirect()->back();
+        }else{
+            return redirect()->back()->with(['message' => 'There was an error please try again later']);
         }
-        return null;
     }
 
     public function postAddComment(Request $request)
@@ -108,5 +118,11 @@ class PostController extends Controller
             $message = "Comment successfully created";
         }
         return redirect()->route('dashboard')->with(['message' => $message]);
+    }
+
+    public function getViewPost($post_id)
+    {
+        $post = Post::where('id', $post_id)->first();
+        return view('post', ['post' => $post]);
     }
 }

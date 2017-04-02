@@ -95,7 +95,7 @@ class UserController extends Controller
         }
     }
 
-    // This function dose nothing :)
+    // The start of nothing ness :)
     public function postUpdateBanner(Request $request)
     {
         $user = Auth::user();
@@ -131,4 +131,5 @@ class UserController extends Controller
         $file = Storage::disk('local')->get($filename);
         return new Response($file, 200);
     }
+    // The end of nothing ness :)
 }

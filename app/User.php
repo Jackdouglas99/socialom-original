@@ -12,10 +12,12 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany('App\Post');
     }
+
     public function likes()
     {
         return $this->hasMany('App\Like');
     }
+
     public function comment()
     {
         return $this->hasMany('App\Comment');
@@ -25,6 +27,11 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany('App\Friend');
     }
+    public function notifications()
+    {
+        return $this->hasMany('App\Notification');
+    }
+
 
     protected $fillable = ['username', 'email', 'password', 'first_name', 'last_name'];
 }

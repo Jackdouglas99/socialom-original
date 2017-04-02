@@ -2,6 +2,7 @@
     <head>
         <link rel="stylesheet" href="https://cdn.jackdouglas.co.uk/bootstrap-3.3.7/css/bootstrap.css">
         <link rel="stylesheet" href="https://cdn.jackdouglas.co.uk/cosmo-bootstrap.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>@yield('title')</title>
     </head>
     <body>

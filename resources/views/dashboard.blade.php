@@ -55,7 +55,18 @@ Dashboard
                     </div>
                     <div class="panel-footer post">
                         <div class="interaction">
-                            <a href="#" class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a>
+                            @if(count($post->likes))
+                                @if(count($post->likes) == 1)
+                                    {{count($post->likes)}} Like
+                                @else
+                                    {{count($post->likes)}} Likes
+                                @endif
+                            @endif
+                            @if(!count(Auth::user()->likes()->where('post_id', $post->id)->first()))
+                                <a href="{{route('like', $post->id)}}">Like</a>
+                            @else
+                                <a href="{{route('unlike', $post->id)}}">Unlike</a>
+                            @endif
                             @if (!count($post->comments))
                                 <a role="button" data-toggle="collapse" href="#no-comments-{{$post->id}}" aria-expanded="false" aria-controls="no-comments-{{$post->id}}">Comment</a>
                             @endif
@@ -128,6 +139,5 @@ Dashboard
     </div>
     <script>
         var token = "{{csrf_token()}}";
-        var urlLike = '{{ route('like') }}';
     </script>
 @endsection

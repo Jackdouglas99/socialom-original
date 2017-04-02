@@ -60,9 +60,15 @@ Route::post('/edit', [
     'middleware' => 'auth'
 ]);
 
-Route::post('/like', [
+Route::get('/like/{post_id}', [
     'uses' => 'PostController@postLikePost',
     'as' => 'like',
+    'middleware' => 'auth'
+]);
+
+Route::get('/unlike/{post_id}', [
+    'uses' => 'PostController@postUnLikePost',
+    'as' => 'unlike',
     'middleware' => 'auth'
 ]);
 
@@ -81,6 +87,18 @@ Route::post('/addcomment', [
 Route::post('/update-bio', [
     'uses' => 'UserController@postUpdateBio',
     'as' => 'update.bio',
+    'middleware' => 'auth'
+]);
+
+Route::get('/post/{post_id}', [
+    'uses' => 'PostController@getViewPost',
+    'as' => 'view.post',
+    'middleware' => 'auth'
+]);
+
+Route::get('/notif/{notif_id}', [
+    'uses' => 'NotificationController@getReadNotification',
+    'as' => 'read.notification',
     'middleware' => 'auth'
 ]);
 
