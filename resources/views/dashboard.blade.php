@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Dashboard
+Socialom
 @endsection
 
 @section('content')
@@ -22,7 +22,7 @@ Dashboard
                 <li role="presentation" class="active"><a>News Feed</a></li>
                 <li role="presentation" class="disabled"><a>Messages</a></li>
             </ul>
-            <a href="" class="text-muted">Terms</a> - <a href="" class="text-muted">Privacy</a><br><p class="text-muted">&copy; <a href="https://www.jackdouglas.co.uk" class="text-muted">Jack Douglas</a> 2017</p>
+            <a href="{{route('terms')}}" class="text-muted">Terms</a> - <a href="{{route('privacy')}}" class="text-muted">Privacy</a><br><p class="text-muted">&copy; <a href="https://www.jackdouglas.co.uk" class="text-muted">Jack Douglas</a> 2017</p>
         </div>
         <div class="col-md-8">
             <div class="panel panel-default">

@@ -37,11 +37,29 @@
                             @if(count(\App\Notification::where('to', Auth::user()->id)->whereNull('read_at')->get()))
                                 @foreach(\App\Notification::where('to', Auth::user()->id)->whereNull('read_at')->get() as $notif)
                                     @if($notif->type == "like")
-                                        <li><a href="{{route('read.notification', $notif->id)}}">{{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Liked your post.</a></li>
+                                        <li>
+                                            <a href="{{route('read.notification', $notif->id)}}">
+                                                {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Liked your post.
+                                            </a>
+                                        </li>
                                     @elseif($notif->type == "fRequest")
-                                        <li><a href="{{route('read.notification', $notif->id)}}">{{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Sent you a friend request.</a></li>
+                                        <li>
+                                            <a href="{{route('read.notification', $notif->id)}}">
+                                                {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Sent you a friend request.
+                                            </a>
+                                        </li>
                                     @elseif($notif->type == "fRequestAccept")
-                                        <li><a href="{{route('read.notification', $notif->id)}}">{{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Accepted your friend request.</a></li>
+                                        <li>
+                                            <a href="{{route('read.notification', $notif->id)}}">
+                                                {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Accepted your friend request.
+                                            </a>
+                                        </li>
+                                    @elseif($notif->type == "comment")
+                                        <li>
+                                            <a href="{{route('read.notification', $notif->id)}}">
+                                                {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Commented your post.
+                                            </a>
+                                        </li>
                                     @endif
                                 @endforeach
                             @else

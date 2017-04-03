@@ -113,11 +113,27 @@ class PostController extends Controller
         $comment->user_id = Auth::user()->id;
         $comment->post_id = $request['post_id'];
         $comment->content = $request['comment'];
-        $message = "There was an error.";
-        if($request->user()->comment()->save($comment)){
-            $message = "Comment successfully created";
+
+        // Notification setup
+        $post = Post::where('id', $request['post_id'])->first();
+        $notif = new Notification();
+        $notif->user_id = Auth::user()->id;
+        $notif->to = $post->user_id;
+        $notif->type = 'comment';
+        $notif->data = $request['post_id'];
+
+        if($request->user()->comment()->save($comment)) {
+            if ($post->user_id != Auth::user()->id) {
+                if ($notif->save()) {
+                    return redirect()->back()->with(['message' => 'Comment successfully created']);
+                } else {
+                    return redirect()->back()->with(['message' => 'There was an error please try again later']);
+                }
+            } else {
+                return redirect()->back();
+            }
         }
-        return redirect()->route('dashboard')->with(['message' => $message]);
+
     }
 
     public function getViewPost($post_id)

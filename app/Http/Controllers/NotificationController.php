@@ -30,6 +30,11 @@ class NotificationController extends Controller
             if($notif->update()) {
                 return redirect()->route('profile', User::where('id', $notif->user_id)->first()->username);
             }
+        }elseif($notif->type == "comment"){
+            $notif->read_at = $time;
+            if($notif->update()) {
+                return redirect()->route('view.post', $notif->data);
+            }
         }
     }
 }

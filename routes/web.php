@@ -72,7 +72,7 @@ Route::get('/unlike/{post_id}', [
     'middleware' => 'auth'
 ]);
 
-Route::get('/{username}', [
+Route::get('/p/{username}', [
   'uses' => 'PostController@getProfile',
   'as' => 'profile',
   'middleware' => 'auth'
@@ -123,3 +123,11 @@ Route::get('/decline-friend-request/{frid}', [
     'as' => 'decline.friend.request',
     'middleware' => 'auth'
 ]);
+
+// Terms & Privacy
+Route::get('/terms', function(){
+    return view('terms');
+})->name('terms');
+Route::get('/privacy', function(){
+    return view('privacy');
+})->name('privacy');
