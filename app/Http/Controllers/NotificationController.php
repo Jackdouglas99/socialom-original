@@ -5,7 +5,6 @@ use App\User;
 use App\Notification;
 use Carbon\Carbon;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller

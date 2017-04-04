@@ -5,6 +5,7 @@ use App\User;
 use App\Friend;
 use App\FriendRequest;
 use App\Notification;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
