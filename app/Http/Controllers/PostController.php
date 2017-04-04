@@ -66,7 +66,6 @@ class PostController extends Controller
 
     public function postLikePost($post_id)
     {
-        // Like setup
         $like = new Like();
         $like->user_id = Auth::user()->id;
         $like->post_id = $post_id;

@@ -27,9 +27,9 @@
             <div class="interaction">
                 @if(count($post->likes))
                     @if(count($post->likes) == 1)
-                        {{count($post->likes)}} Like
+                        <a data-toggle="modal" data-target="#{{$post->id}}" href="#{{$post->id}}">{{count($post->likes)}} Like</a>
                     @else
-                        {{count($post->likes)}} Likes
+                        <a data-toggle="modal" data-target="#{{$post->id}}" href="#{{$post->id}}">{{count($post->likes)}} Likes</a>
                     @endif
                 @endif
                 @if(!count(Auth::user()->likes()->where('post_id', $post->id)->first()))
@@ -45,6 +45,21 @@
                     <a href="{{route('post.delete', ['post_id' => $post->id])}}">Delete</a>
                 @endif
             </div>
+        </div>
+        <div class="modal fade" id="{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="list-group">
+                  @foreach($post->likes as $like)
+                    <a href="{{route('profile', \App\User::where('id', $like->user_id)->first()->username)}}" target="_blank" class="list-group-item">
+                      {{\App\User::where('id', $like->user_id)->first()->username}}
+                    </a>
+                    @endforeach
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         @if (count($post->comments))
             <ul class="list-group">
