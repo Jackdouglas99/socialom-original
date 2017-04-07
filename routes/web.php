@@ -8,6 +8,9 @@ Route::get('/', [
     'as' => 'dashboard',
     'middleware' => 'auth'
 ]);
+Route::get('/error', function(){
+  return view('suspended');
+})->name('suspended');
 
 // Notification Route
 Route::get('/notif/{notif_id}', [
@@ -71,8 +74,8 @@ Route::get('/account', [
     'as' => 'account',
     'middleware' => 'auth'
 ]);
-Route::post('/upateaccount', [
-    'uses' => 'UserController@postSaveAccount',
+Route::post('/update-info/account', [
+    'uses' => 'UserController@postUpdateAccount',
     'as' => 'account.update',
     'middleware' => 'auth'
 ]);
@@ -86,7 +89,7 @@ Route::get('/p/{username}', [
     'as' => 'profile',
     'middleware' => 'auth'
 ]);
-Route::post('/update-bio', [
+Route::post('/update-info/bio', [
     'uses' => 'UserController@postUpdateBio',
     'as' => 'update.bio',
     'middleware' => 'auth'
@@ -121,3 +124,25 @@ Route::get('/terms', function(){
 Route::get('/privacy', function(){
     return view('privacy');
 })->name('privacy');
+
+// Admin Routes
+Route::get('/admin', [
+  'uses' => 'AdminController@getDashboard',
+  'as' => 'admin.dashboard',
+  'middleware' => 'auth'
+]);
+Route::get('/admin/users', [
+  'uses' => 'AdminController@getUsers',
+  'as' => 'admin.users',
+  'middleware' => 'auth'
+]);
+Route::get('/admin/posts', [
+  'uses' => 'AdminController@getPosts',
+  'as' => 'admin.posts',
+  'middleware' => 'auth'
+]);
+Route::get('/admin/comments', [
+  'uses' => 'AdminController@getComments',
+  'as' => 'admin.comments',
+  'middleware' => 'auth'
+]);

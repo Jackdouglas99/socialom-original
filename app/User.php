@@ -27,11 +27,15 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany('App\Friend');
     }
+
     public function notifications()
     {
         return $this->hasMany('App\Notification');
     }
+    public function roles() {
 
+        return $this->belongsToMany('App\Role')->withTimestamps();
+    }
 
     protected $fillable = ['username', 'email', 'password', 'first_name', 'last_name'];
 }

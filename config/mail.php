@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'smtp.sendgrid.net'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'no-reply@socialom.tk'),
+        'name' => env('MAIL_FROM_NAME', 'Socialom'),
     ],
 
     /*
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => env('apikey'),
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => env('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'),
 
     /*
     |--------------------------------------------------------------------------

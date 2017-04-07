@@ -19,16 +19,17 @@ class PostController extends Controller
         $posts = Post::orderBy('updated_at', 'desc')->get();
         return view('dashboard', ['posts' => $posts]);
     }
-
     public function getProfile($username)
     {
         $user = User::where('username', $username)->first();
+        if(!count($user)){
+            return redirect()->route('dashboard')->with(['message' => 'Profile dose not exist.']);
+        }
         $posts = Post::where('user_id', $user->id)->orderBy('updated_at', 'desc')->get();
         $friendRequest = FriendRequest::where('uid1', $user->id)->orwhere('uid2', $user->id)->get();
         $friends = Friend::where('uid1', $user->id)->where('uid2', Auth::user()->id)->orwhere('uid2', $user->id)->where('uid1', Auth::user()->id)->get();
         return view('profile', ['posts' => $posts, 'user' => $user, 'friendRequest' => $friendRequest, 'friends' => $friends]);
     }
-
     public function postCreatePost(Request $request)
     {
         $this->validate($request, [
@@ -42,7 +43,6 @@ class PostController extends Controller
         }
         return redirect()->route('dashboard')->with(['message' => $message]);
     }
-
     public function getDeletePost($post_id)
     {
         $post = Post::where('id', $post_id)->first();
@@ -52,7 +52,6 @@ class PostController extends Controller
         $post->delete();
         return redirect()->back()->with(['message' => 'Successfully deleted!']);
     }
-
     public function postEditPost(Request $request)
     {
         $this->validate($request, [
@@ -63,7 +62,6 @@ class PostController extends Controller
         $post->update();
         return response()->json(['new_body' => $post->body], 200);
     }
-
     public function postLikePost($post_id)
     {
         $like = new Like();
@@ -93,7 +91,6 @@ class PostController extends Controller
             return redirect()->back()->with(['message' => 'There was an error please try again later']);
         }
     }
-
     public function postUnLikePost($post_id)
     {
         $like = Like::where('post_id', $post_id)->where('user_id', Auth::user()->id)->first();
@@ -103,7 +100,6 @@ class PostController extends Controller
             return redirect()->back()->with(['message' => 'There was an error please try again later']);
         }
     }
-
     public function postAddComment(Request $request)
     {
         $this->validate($request, [
@@ -135,7 +131,6 @@ class PostController extends Controller
         }
 
     }
-
     public function getViewPost($post_id)
     {
         $post = Post::where('id', $post_id)->first();

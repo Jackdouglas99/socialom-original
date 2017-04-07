@@ -31,9 +31,9 @@
                             <label for="first_name">First Name:</label><input class="form-control" type="text" name="first_name" value="{{$user->first_name}}" placeholder="First Name"><br>
                             <label for="last_name">Last Name:</label><input class="form-control" type="text" name="last_name" value="{{$user->last_name}}" placeholder="Last Name"><br>
                             <label for="email">Email Address:</label><input class="form-control" type="email" name="email" value="{{$user->email}}" placeholder="Email Address"><br>
-                            <label for="password">New Password:</label><input class="form-control" type="password" name="password" placeholder="New Password" ><br>
+                            <label for="password">New Password:</label><input class="form-control" type="password" name="password" placeholder="New Password" >
                             <small>If you do not want to change your password then just add your current password to the "New Password" field.</small>
-                            <br>
+                            <br><br>
                             <button type="submit" class="btn btn-primary">Save Changed</button>
                         </form>
                     </div>

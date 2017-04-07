@@ -45,7 +45,7 @@
                         <option value="1">Male</option>
                     </select>
                 </div>
-                <p>By clicking Create an account, you agree to our <a href="/terms.php" target="_blank">Terms</a> and confirm that you have read our Data Policy, including our Cookie Use Policy.</p>
+                <p>By clicking Create an account, you agree to our <a href="/terms" target="_blank">Terms</a> and confirm that you have read our Data Policy, including our Cookie Use Policy.</p>
                 <input type="submit" class="btn btn-lg btn-primary" name="register" value="Create an account">
             </form>
         </div>

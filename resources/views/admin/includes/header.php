@@ -1,3 +1,9 @@
+
+  @if(Auth::user() && Auth::user()->role == 0)
+    <script type="text/javascript">
+        window.location = "{{route('suspended')}}";//here double curly bracket
+    </script>
+  @endif
 <nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -81,14 +87,11 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></a>
                         <ul class="dropdown-menu">
                           @if(Auth::user()->role == 1)
-                            <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                             <li><a href="#">Reports</a></li>
                           @elseif(Auth::user()->role == 2)
-                            <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                             <li><a href="#">Manage Reports</a></li>
-                            <li><a href="{{route('admin.users')}}">Manage Users</a></li>
-                            <li><a href="{{route('admin.comments')}}">Manage Comments</a></li>
-                            <li><a href="{{route('admin.posts')}}">Manage Posts</a></li>
+                            <li><a href="#">Manage Users</a></li>
+                            <li><a href="#">Manage Roles</a></li>
                           @endif
                         </ul>
                       </li>

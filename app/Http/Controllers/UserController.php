@@ -5,6 +5,8 @@ use App\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 
 class UserController extends Controller
 {
@@ -41,7 +43,6 @@ class UserController extends Controller
         return redirect()->route('dashboard');
 
     }
-
     public function postSignIn(Request $request)
     {
         $this->validate($request, [
@@ -53,28 +54,26 @@ class UserController extends Controller
         }
         return redirect()->back()->with(['message' => 'Incorrect email address or password']);
     }
-
     public function getLogout()
     {
         Auth::logout();
 
         return redirect()->route('home');
     }
-
     public function getAccount()
     {
         return view('account', ['user' => Auth::user()]);
     }
-
     public function postUpdateAccount(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|max:50',
+            'username' => 'required|max:50|Alpha',
             'email' => 'required|email',
-            'first_name' => 'required|max:50',
-            'last_name' => 'required|max:100',
+            'first_name' => 'required|max:50|Alpha',
+            'last_name' => 'required|max:100|Alpha',
             'password' => 'required|min:4'
         ]);
+        if(Input::has)
         $user = Auth::user();
 
         $user->username = $request['username'];
@@ -86,7 +85,6 @@ class UserController extends Controller
 
         return redirect()->route('account')->with(['message' => 'Your account has been successfully updated']);
     }
-
     public function postUpdateBio(Request $request)
     {
         $user = Auth::user();
@@ -118,7 +116,6 @@ class UserController extends Controller
         }
         return redirect()->route('account');
     }
-
     public function postUpdateProfile(Request $request)
     {
         $user = Auth::user();
@@ -127,7 +124,6 @@ class UserController extends Controller
         $filename = $user->id.'-profile.'.$extention;
         Image::make(Input::file('profile_image'))->resize(140, 140)->save($filename);
     }
-
     public function getUserImage($filename)
     {
         $file = Storage::disk('local')->get($filename);

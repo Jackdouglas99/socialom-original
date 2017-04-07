@@ -113,6 +113,17 @@
                         @endif
                     @endif
                 </div>
+                @if($user->id != Auth::user()->id)
+                  @if(Auth::user()->role != 0)
+                    <div class="panel-body">
+                      @if(Auth::user()->role == 1)
+                        <a href="#" class="btn btn-primary">View Reports</a>
+                      @elseif(Auth::user()->role == 2)
+                        <a href="#" class="btn btn-primary">Edit Profile</a> <a href="#" class="btn btn-primary">View Reports</a>
+                      @endif
+                    </div>
+                  @endif
+                @endif
             </div>
         </div>
         <div class="col-md-8">
