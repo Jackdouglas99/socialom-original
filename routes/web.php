@@ -11,8 +11,6 @@ Route::get('/', [
 Route::get('/error', function(){
   return view('suspended');
 })->name('suspended');
-
-// Notification Route
 Route::get('/notif/{notif_id}', [
     'uses' => 'NotificationController@getReadNotification',
     'as' => 'read.notification',
@@ -145,4 +143,19 @@ Route::get('/admin/comments', [
   'uses' => 'AdminController@getComments',
   'as' => 'admin.comments',
   'middleware' => 'auth'
+]);
+Route::get('admin/user/{user_id}', [
+    'uses' => 'AdminController@getUser',
+    'as' => 'admin.user',
+    'middleware' => 'auth'
+]);
+Route::get('admin/post/{post_id}', [
+    'uses' => 'AdminController@getPost',
+    'as' => 'admin.post',
+    'middleware' => 'auth'
+]);
+Route::get('/admin/comment/{comment_id}', [
+    'uses' => 'AdminController@getComment',
+    'as' => 'admin.comment',
+    'middleware' => 'auth'
 ]);

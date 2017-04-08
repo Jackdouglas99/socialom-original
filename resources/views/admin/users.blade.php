@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-  Admin Dashboard
+  User List
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
         <tbody>
           @foreach($users as $user)
           <tr>
-            <td><a href="#">{{$user->id}}</a></td>
+            <td><a href="{{route('admin.user', $user->id)}}">{{$user->id}}</a></td>
             <td>{{$user->username}}</td>
             <td>{{$user->first_name}}</td>
             <td>{{$user->last_name}}</td>
@@ -50,7 +50,6 @@
             @elseif($user->role == 2)
               <td><span class="label label-primary">Super Administrator</span></td>
             @endif
-
           </tr>
           @endforeach
         </tbody>

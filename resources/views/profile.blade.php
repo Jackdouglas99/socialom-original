@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Profile
+    Profile - {{$user->username}}
 @endsection
 
 @section('content')

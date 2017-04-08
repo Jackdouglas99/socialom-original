@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-  Admin Dashboard
+  Comment List
 @endsection
 
 @section('content')
@@ -37,9 +37,9 @@
         <tbody>
           @foreach($comments as $comment)
           <tr>
-            <td><a href="#">{{$comment->id}}</a></td>
+            <td><a href="">{{$comment->id}}</a></td>
             <td>{{$comment->user->username}}</td>
-            <td><a href="#">{{$comment->post->id}}</a></td>
+            <td><a href="{{route('admin.post', $comment->post->id)}}">{{$comment->post->id}}</a></td>
             <td>{{$comment->content}}</td>
             <td>Coming Soon</td>
           </tr>

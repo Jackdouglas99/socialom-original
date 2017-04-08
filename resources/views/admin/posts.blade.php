@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-  Admin Dashboard
+  Post List
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
         <tbody>
           @foreach($posts as $post)
           <tr>
-            <td><a href="#">{{$post->id}}</a></td>
+            <td><a href="{{route('admin.post', $post->id)}}">{{$post->id}}</a></td>
             <td>{{$post->user->username}}</td>
             <td>{{$post->body}}</td>
             <td>{{count($post->likes)}}</td>
