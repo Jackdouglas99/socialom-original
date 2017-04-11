@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    User - #{{$comment->id}}
+    Comment - #{{$comment->id}}
 @endsection
 
 @section('content')

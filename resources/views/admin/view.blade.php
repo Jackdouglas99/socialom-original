@@ -43,8 +43,8 @@
         </div>
         <div class="col-sm-3">
           <div class="well">
-            <h4>Likes</h4>
-            <p>{{$like_count}}</p>
+            <h4>Reports</h4>
+            <p>{{$report_count}}</p>
           </div>
         </div>
       </div>

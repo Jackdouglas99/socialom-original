@@ -1,3 +1,4 @@
 <center>
-    <h1>This is your verification email</h1>
+    <h1>{{$title}}</h1>
+    <p>{{$content}}</p>
 </center>

@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', 2525),
 
     /*
     |--------------------------------------------------------------------------
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('apikey'),
+    'username' => env('JackDouglas'),
 
-    'password' => env('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'),
+    'password' => env('Douggie@1999'),
 
     /*
     |--------------------------------------------------------------------------

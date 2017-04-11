@@ -5,6 +5,7 @@ use App\User;
 use App\Post;
 use App\Comment;
 use App\Like;
+use App\Report;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,8 @@ class AdminController extends Controller
         $post_count = count(Post::orderBy('updated_at', 'desc')->get());
         $user_count = count(User::where('suspended', '0')->get());
         $comment_count = count(Comment::orderBy('updated_at', 'desc')->get());
-        $like_count = count(Like::where('like', '1')->get());
+        $report_count = count(Report::orderBy('status', '0')->get());
+
 
         $posts_recent = Post::orderBy('created_at', 'desc')->limit(5)->get();
         $comments_recent = Comment::orderBy('created_at', 'desc')->limit(5)->get();
@@ -25,7 +27,7 @@ class AdminController extends Controller
             'post_count' => $post_count,
             'user_count' => $user_count,
             'comment_count' => $comment_count,
-            'like_count' => $like_count,
+            'report_count' => $report_count,
             'posts_recent' => $posts_recent,
             'comments_recent' => $comments_recent,
             'users_recent' => $users_recent
@@ -56,6 +58,14 @@ class AdminController extends Controller
         ]);
     }
 
+    public function getReports()
+    {
+        $reports = Report::orderBy('created_at', 'desc')->get();
+        return view('admin.reports', [
+            'reports' => $reports
+        ]);
+    }
+
     public function getUser($user_id)
     {
         $user = User::where('id', $user_id)->first();
@@ -77,6 +87,14 @@ class AdminController extends Controller
         $comment = Comment::where('id', $comment_id)->first();
         return view('admin.comment', [
             'comment' => $comment
+        ]);
+    }
+
+    public function getReport($report_id)
+    {
+        $report = Report::where('id', $report_id)->first();
+        return view('admin.report', [
+            'report' => $report
         ]);
     }
 

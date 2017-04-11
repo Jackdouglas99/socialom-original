@@ -3,7 +3,7 @@
   <ul class="nav nav-pills nav-stacked">
     <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
     <li><a href="{{route('admin.users')}}">Users</a></li>
-    <li><a href="#">Reports</a></li>
+    <li><a href="{{route('admin.reports')}}">Reports</a></li>
     <li><a href="{{route('admin.posts')}}">Posts</a></li>
     <li><a href="{{route('admin.comments')}}">Comments</a></li>
   </ul>

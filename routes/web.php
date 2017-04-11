@@ -54,6 +54,18 @@ Route::get('/post/{post_id}', [
     'middleware' => 'auth'
 ]);
 
+// Report Routes
+Route::post('/report/{post_id}', [
+    'uses' => 'ReportController@postAddReport',
+    'as' => 'send-report',
+    'middleware' => 'auth'
+]);
+Route::post('/admin/report/{report_id}', [
+    'uses' => 'ReportController@postReportAdmin',
+    'as' => 'report.update',
+    'middleware' => 'auth'
+]);
+
 // User Routes
 Route::post('/signup', [
     'uses' => 'UserController@postSignUp',
@@ -140,9 +152,14 @@ Route::get('/admin/posts', [
   'middleware' => 'auth'
 ]);
 Route::get('/admin/comments', [
-  'uses' => 'AdminController@getComments',
-  'as' => 'admin.comments',
-  'middleware' => 'auth'
+    'uses' => 'AdminController@getComments',
+    'as' => 'admin.comments',
+    'middleware' => 'auth'
+]);
+Route::get('/admin/reports', [
+    'uses' => 'AdminController@getReports',
+    'as' => 'admin.reports',
+    'middleware' => 'auth'
 ]);
 Route::get('admin/user/{user_id}', [
     'uses' => 'AdminController@getUser',
@@ -158,4 +175,14 @@ Route::get('/admin/comment/{comment_id}', [
     'uses' => 'AdminController@getComment',
     'as' => 'admin.comment',
     'middleware' => 'auth'
+]);
+Route::get('/admin/report/{report_id}', [
+    'uses' => 'AdminController@getReport',
+    'as' => 'admin.report',
+    'middleware' => 'auth'
+]);
+
+// Email Sending
+Route::get('/send', [
+    'uses' => 'UserController@send'
 ]);

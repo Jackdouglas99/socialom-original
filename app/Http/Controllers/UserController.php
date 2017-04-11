@@ -130,4 +130,19 @@ class UserController extends Controller
         return new Response($file, 200);
     }
     // The end of nothing ness :)
+
+    public function send()
+    {
+
+        Mail::send('emails.verifyEmail', ['title' => 'test email', 'content' => 'test'], function ($message)
+        {
+
+            $message->from('no-reply@socialom.tk', 'Socialom');
+
+            $message->to(Auth::user()->email)->subject('test email');
+
+        });
+
+        return response()->json(['message' => 'Request completed']);
+    }
 }

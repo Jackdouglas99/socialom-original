@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    User - #{{$post->id}}
+    Post - #{{$post->id}}
 @endsection
 
 @section('content')
@@ -19,7 +19,7 @@
         @include('admin.includes.sidebar')
         <div class="col-sm-9">
             <div class="well">
-                Posted By: <a href="{{route('profile', $post->user->username)}}">{{$post->user->first_name}} {{$post->user->last_name}}</a>
+                Posted By: <a href="{{route('admin.user', $post->user->id)}}">{{$post->user->first_name}} {{$post->user->last_name}}</a>
             </div>
             <div class="well">
                 Created: {{$post->created_at}}<br>
@@ -32,8 +32,22 @@
             <div class="well">
                 Email: <a href="mailto:{{$post->user->email}}">{{$post->user->email}}</a>
             </div>
-            <div class="well">
-                Content: {{$post->body}}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @if($post->user->profile_img == NULL)
+                        <img src="https://cdn.jackdouglas.co.uk/male-placehold.png" alt="" style="width: 30px; height: 30px; !important;">
+                    @else
+                        <img src="{{$post->user->profile_img}}" alt="Profile img" style="width: 30px; height: 30px; !important;">
+                    @endif
+                    <a href="{{route('admin.user', $post->user->id)}}">
+                        {{$post->user->first_name}} {{$post->user->last_name}}
+                    </a>
+                    <small>at: {{$post->updated_at}}</small>
+                        <a href="{{route('admin.reports')}}" class="btn btn-primary btn-sm pull-right">View Reports</a>
+                </div>
+                <div class="panel-body">
+                    {{$post->body}}
+                </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">Comments</div>
@@ -50,6 +64,7 @@
                                     {{$comment->user->first_name}} {{$comment->user->last_name}}
                                 </a>
                                 {{$comment->content}}
+                                <a href="{{route('admin.comment', $comment->id)}}" class="btn btn-primary btn-sm pull-right">View Comment</a>
                             </li>
                         @endforeach
                     </ul>
