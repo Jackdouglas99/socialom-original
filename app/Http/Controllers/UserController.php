@@ -73,7 +73,6 @@ class UserController extends Controller
             'last_name' => 'required|max:100|Alpha',
             'password' => 'required|min:4'
         ]);
-        if(Input::has)
         $user = Auth::user();
 
         $user->username = $request['username'];

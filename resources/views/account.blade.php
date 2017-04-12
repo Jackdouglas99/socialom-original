@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @include('includes.message-block')
     <div class="container">
         <div class="row">
             <div class="col-md-4">

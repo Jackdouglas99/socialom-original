@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @include('includes.message-block')
     <style>
         .cover-container{
             height:300px;
@@ -148,6 +149,11 @@
                             {{$post->user->first_name}} {{$post->user->last_name}}
                         </a>
                         <small>at: {{$post->updated_at}}</small>
+                        @if($post->user_id != Auth::user()->id)
+                            <div class="pull-right">
+                                <a href="#" data-toggle="modal" data-target="#report-{{$post->id}}" href="#report-{{$post->id}}">Report post</a>
+                            </div>
+                        @endif
                     </div>
                     <div class="panel-body" id="postText">
                         <p class="postContent">
@@ -177,6 +183,34 @@
                             @endif
                         </div>
                     </div>
+                    <div class="modal fade" id="report-{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                </div>
+                                <form action="{{route('send-report', $post->id)}}" method="post">
+                                    {{csrf_field()}}
+                                    <div class="modal-body">
+                                        Why are you reporting this post?
+                                        <div class="radio">
+                                            <label><input type="radio" name="report" id="0" value="0" checked>It's annoying or not interesting</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="report" id="1" value="1">I think it shouldn't be on Socialom</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="report" id="2" value="2">It's spam</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit Report</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     <div class="modal fade" id="{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">

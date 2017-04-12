@@ -181,6 +181,16 @@ Route::get('/admin/report/{report_id}', [
     'as' => 'admin.report',
     'middleware' => 'auth'
 ]);
+Route::post('/admin/user/{user_id}/a-update', [
+    'uses' => 'AdminController@postUpdateUserA',
+    'as' => 'admin.update.user',
+    'middleware' => 'auth'
+]);
+Route::post('/admin/user/{user_id}/sa-update', [
+    'uses' => 'AdminController@postUpdateUserSA',
+    'as' => 'super.admin.update.user',
+    'middleware' => 'auth'
+]);
 
 // Email Sending
 Route::get('/send', [

@@ -82,10 +82,11 @@
                         <ul class="dropdown-menu">
                           @if(Auth::user()->role == 1)
                             <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-                            <li><a href="#">Reports</a></li>
+                            <li><a href="{{route('admin.reports')}}">Reports</a></li>
                           @elseif(Auth::user()->role == 2)
                             <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-                            <li><a href="#">Manage Reports</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{route('admin.reports')}}">Manage Reports</a></li>
                             <li><a href="{{route('admin.users')}}">Manage Users</a></li>
                             <li><a href="{{route('admin.comments')}}">Manage Comments</a></li>
                             <li><a href="{{route('admin.posts')}}">Manage Posts</a></li>

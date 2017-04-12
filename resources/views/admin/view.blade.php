@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+  @include('includes.message-block')
   <style>
     .row.content {height: 550px}
     .sidenav {
@@ -50,35 +51,40 @@
       </div>
       <div class="row">
         <div class="col-sm-4">
-          <div class="well">
-            <h4>Recent Posts</h4>
-            @foreach($posts_recent as $recent_post)
-              <div class="well">
-                {{$recent_post->body}}
-              </div>
-            @endforeach
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Posts <a href="{{route('admin.posts')}}" class="btn btn-primary btn-xs pull-right">View All</a></div>
+            <div class="panel-body">
+              @foreach($posts_recent as $recent_post)
+                <div class="well">
+                  {{$recent_post->body}}
+                </div>
+              @endforeach
+            </div>
           </div>
         </div>
         <div class="col-sm-4">
-          <div class="well">
-            <h4>Recent Comments</h4>
-            @foreach($comments_recent as $recent_comment)
-              <div class="well">
-                {{$recent_comment->content}}
-              </div>
-            @endforeach
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Comments <a href="{{route('admin.comments')}}" class="btn btn-primary btn-xs pull-right">View All</a></div>
+            <div class="panel-body">
+              @foreach($comments_recent as $recent_comment)
+                <div class="well">
+                  {{$recent_comment->content}}
+                </div>
+              @endforeach
+            </div>
           </div>
         </div>
         <div class="col-sm-4">
-          <div class="well">
-            <h4>Recent Users</h4>
-            @foreach($users_recent as $recent_user)
-              <div class="well">
-                {{$recent_user->username}}
-              </div>
-            @endforeach
+          <div class="panel panel-default">
+            <div class="panel-heading">Recent Users <a href="{{route('admin.users')}}" class="btn btn-primary btn-xs pull-right">View All</a></div>
+            <div class="panel-body">
+              @foreach($users_recent as $recent_user)
+                <div class="well">
+                  {{$recent_user->username}}
+                </div>
+              @endforeach
+            </div>
           </div>
-        </div>
       </div>
     </div>
   </div>

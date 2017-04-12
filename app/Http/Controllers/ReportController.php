@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Report;
+use App\Comment;
+use App\Like;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +39,8 @@ class ReportController extends Controller
             if($request['status'] == 1){
                 $post_id = Report::where('id', $report_id)->first()->post_id;
                 $post = Post::where('id', $post_id)->first();
+                Comment::where('post_id', $post_id)->delete();
+                Like::where('post_id', $post_id)->delete();
                 $post->delete();
                 return redirect()->route('admin.reports')->with(['message' => 'Post successfully deleted & Report Updated!']);
             }else {

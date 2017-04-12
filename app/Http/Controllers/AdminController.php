@@ -33,7 +33,39 @@ class AdminController extends Controller
             'users_recent' => $users_recent
         ]);
     }
+    public function postUpdateUserA($user_id, Request $request)
+    {
+        $user = User::Find($user_id);
 
+        if(isset($request['suspend'])){
+            $user->suspended = "1";
+        }elseif(isset($request['unsuspend'])){
+            $user->suspended = "0";
+        }
+
+        if($user->save()){
+            if(isset($request['suspend'])){
+                return redirect()->route('admin.user', $user_id)->with('message', 'User has been suspended');
+            }elseif(isset($request['unsuspend'])){
+                return redirect()->route('admin.user', $user_id)->with('message', 'User has been un-suspended');
+            }
+        }else{
+            return redirect()->back->with(['message', 'There has been an error!']);
+        }
+    }
+    public function postUpdateUserSA($user_id, Request $request)
+    {
+        $user = User::Find($user_id);
+
+        if(Auth::user()->role == 2){
+            $user->role = $request['role'];
+            if($user->save()){
+                return redirect()->route('admin.user', $user_id)->with('message', 'Account has been successfully saved.');
+            }
+        }
+    }
+
+    // Get groups
     public function getUsers()
     {
         $users = User::orderBy('username', 'desc')->get();
@@ -41,7 +73,6 @@ class AdminController extends Controller
             'users' => $users
         ]);
     }
-
     public function getPosts()
     {
         $posts = Post::orderBy('updated_at', 'desc')->get();
@@ -49,7 +80,6 @@ class AdminController extends Controller
             'posts' => $posts
         ]);
     }
-
     public function getComments()
     {
         $comments = Comment::orderBy('created_at', 'desc')->get();
@@ -57,7 +87,6 @@ class AdminController extends Controller
             'comments' => $comments
         ]);
     }
-
     public function getReports()
     {
         $reports = Report::orderBy('created_at', 'desc')->get();
@@ -66,14 +95,17 @@ class AdminController extends Controller
         ]);
     }
 
+    // Get single items
     public function getUser($user_id)
     {
         $user = User::where('id', $user_id)->first();
+        if($user->id == Auth::user()->id){
+            return redirect()->route('admin.dashboard')->with('message', 'Sorry. You cannot view your own account.');
+        }
         return view('admin.user', [
             'user' => $user
         ]);
     }
-
     public function getPost($post_id)
     {
         $post = Post::where('id', $post_id)->first();
@@ -81,7 +113,6 @@ class AdminController extends Controller
             'post' => $post
         ]);
     }
-
     public function getComment($comment_id)
     {
         $comment = Comment::where('id', $comment_id)->first();
@@ -89,7 +120,6 @@ class AdminController extends Controller
             'comment' => $comment
         ]);
     }
-
     public function getReport($report_id)
     {
         $report = Report::where('id', $report_id)->first();

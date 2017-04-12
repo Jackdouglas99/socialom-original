@@ -46,11 +46,11 @@ Socialom
                             {{$post->user->first_name}} {{$post->user->last_name}}
                         </a>
                         <small>at: {{$post->updated_at}}</small>
-                            @if($post->user_id != Auth::user()->id)
-                                <div class="pull-right">
-                                    <a href="#" data-toggle="modal" data-target="#report-{{$post->id}}" href="#report-{{$post->id}}">Report post</a>
-                                </div>
-                            @endif
+                        @if($post->user_id != Auth::user()->id)
+                            <div class="pull-right">
+                                <a href="#" data-toggle="modal" data-target="#report-{{$post->id}}" href="#report-{{$post->id}}">Report post</a>
+                            </div>
+                        @endif
                     </div>
                     <div class="panel-body" id="postText">
                         <p class="postContent">
