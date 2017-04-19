@@ -36,7 +36,6 @@ class FriendController extends Controller
             return redirect()->back()->with(['message' => 'Could not send friend request. Please try again later']);
         }
     }
-
     public function postCancelRequest(Request $request)
     {
         $frid = $request['frid'];
@@ -50,7 +49,6 @@ class FriendController extends Controller
             return redirect()->back()->with(['message' => 'Could not cancel friend request. Please try again later']);
         }
     }
-
     public function getAcceptRequest($frid)
     {
         $friendRequest = FriendRequest::where('id', $frid)->first();
@@ -78,7 +76,6 @@ class FriendController extends Controller
 
 
     }
-
     public function getDeclineRequest($frid)
     {
         $friendRequest = FriendRequest::where('id', $frid)->first();

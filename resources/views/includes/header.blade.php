@@ -60,6 +60,12 @@
                                                 {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Commented your post.
                                             </a>
                                         </li>
+                                    @elseif($notif->type == "comment.deleted")
+                                        <li>
+                                            <a href="{{route('read.notification', $notif->id)}}">
+                                                {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} deleted your comment.
+                                            </a>
+                                        </li>
                                     @endif
                                 @endforeach
                             @else

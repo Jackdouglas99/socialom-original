@@ -42,6 +42,7 @@
                                     Created: {{$user->created_at}}<br>
                                     Last Updated: {{$user->updated_at}}
                                 </li>
+                                <li class="list-group-item">About: {{$user->about}}</li>
                             </ul>
                         </div>
                     </div>
@@ -59,6 +60,29 @@
                                 @elseif($user->suspended == 1)
                                     <button type="submit" class="btn btn-danger btn-md" name="unsuspend">Un-Suspend User</button>
                                 @endif
+                            </form>
+                            <a href="#" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal">
+                                Edit About
+                            </a>
+                            <form action="{{route('admin.update.user.bio', $user->id)}}" method="post">
+                                {{csrf_field()}}
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Edit user's about section.</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$user->about}}</textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

@@ -50,7 +50,12 @@ class UserController extends Controller
             'password1' => 'required',
         ]);
         if(Auth::attempt(['email' => $request['email1'], 'password' => $request['password1']])){
-            return redirect()->route('dashboard');
+            if(Auth::user()->suspended == 1) {
+                Auth::logout();
+                return redirect()->route('home')->with(['message' => 'Sorry but your account is suspended']);
+            }else {
+                return redirect()->route('dashboard');
+            }
         }
         return redirect()->back()->with(['message' => 'Incorrect email address or password']);
     }

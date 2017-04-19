@@ -143,7 +143,7 @@
                         @if($post->user->profile_img == NULL)
                             <img src="https://cdn.jackdouglas.co.uk/male-placehold.png" alt="" style="width: 30px; height: 30px; !important;">
                         @else
-                          <img src="{{$post->user->profile_img}}" alt="Profile img" style="width: 30px; height: 30px; !important;">
+                            <img src="{{$post->user->profile_img}}" alt="Profile img" style="width: 30px; height: 30px; !important;">
                         @endif
                         <a href="{{route('profile', $post->user->username)}}">
                             {{$post->user->first_name}} {{$post->user->last_name}}
@@ -157,7 +157,7 @@
                     </div>
                     <div class="panel-body" id="postText">
                         <p class="postContent">
-                          {{$post->body}}
+                            {{$post->body}}
                         </p>
                     </div>
                     <div class="panel-footer post">
@@ -211,55 +211,56 @@
                                 </form>
                             </div>
                         </div>
-                    <div class="modal fade" id="{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-body">
-                            <div class="list-group">
-                              @foreach($post->likes as $like)
-                                <a href="{{route('profile', \App\User::where('id', $like->user_id)->first()->username)}}" target="_blank" class="list-group-item">
-                                  {{\App\User::where('id', $like->user_id)->first()->username}}
-                                </a>
-                                @endforeach
+                        <div class="modal fade" id="{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="list-group">
+                                            @foreach($post->likes as $like)
+                                                <a href="{{route('profile', \App\User::where('id', $like->user_id)->first()->username)}}" target="_blank" class="list-group-item">
+                                                    {{\App\User::where('id', $like->user_id)->first()->username}}
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
-                    </div>
-                    @if (count($post->comments))
-                        <ul class="list-group">
-                            @foreach($post->comments as $comment)
-                                <li class="list-group-item">
-                                    @if($post->user->profile_img == NULL)
-                                        <img src="https://cdn.jackdouglas.co.uk/male-placehold.png" alt="" style="width: 30px; height: 30px; !important;">
-                                    @else
-                                    <img src="{{$post->user->profile_img}}" alt="Profile img" style="width: 30px; height: 30px; !important;">
-                                    @endif
-                                    <a href="{{route('profile', $comment->user->username)}}">
-                                        {{$comment->user->first_name}} {{$comment->user->last_name}}
-                                    </a>
-                                    {{$comment->content}}
-                                </li>
-                            @endforeach
-                        </ul>
-                        <div class="panel-footer">
-                            <form action="{{route('addcomment')}}" method="post" style="margin-bottom: 0px; !important;">
-                                {{csrf_field()}}
-                                <input type="hidden" name="post_id" value="{{$post->id}}">
-                                <input type="text" class="form-control" placeholder="Write a comment" name="comment">
-                            </form>
-                        </div>
-                    @else
-                        <div class="collapse" id="no-comments-{{$post->id}}">
+                        @if (count($post->comments))
+                            <ul class="list-group">
+                                @foreach($post->comments as $comment)
+                                    <li class="list-group-item">
+                                        @if($post->user->profile_img == NULL)
+                                            <img src="https://cdn.jackdouglas.co.uk/male-placehold.png" alt="" style="width: 30px; height: 30px; !important;">
+                                        @else
+                                            <img src="{{$post->user->profile_img}}" alt="Profile img" style="width: 30px; height: 30px; !important;">
+                                        @endif
+                                        <a href="{{route('profile', $comment->user->username)}}">
+                                            {{$comment->user->first_name}} {{$comment->user->last_name}}
+                                        </a>
+                                        {{$comment->content}}
+                                    </li>
+                                @endforeach
+                            </ul>
                             <div class="panel-footer">
-                                <form action="{{route('addcomment')}}" method="post">
+                                <form action="{{route('addcomment')}}" method="post" style="margin-bottom: 0px; !important;">
                                     {{csrf_field()}}
                                     <input type="hidden" name="post_id" value="{{$post->id}}">
                                     <input type="text" class="form-control" placeholder="Write a comment" name="comment">
                                 </form>
                             </div>
-                        </div>
-                    @endif
+                        @else
+                            <div class="collapse" id="no-comments-{{$post->id}}">
+                                <div class="panel-footer">
+                                    <form action="{{route('addcomment')}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="post_id" value="{{$post->id}}">
+                                        <input type="text" class="form-control" placeholder="Write a comment" name="comment">
+                                    </form>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             @endforeach
         </div>

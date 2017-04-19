@@ -6,6 +6,7 @@ use App\Post;
 use App\Comment;
 use App\Like;
 use App\Report;
+use App\Notification;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,10 +63,27 @@ class AdminController extends Controller
             if($user->save()){
                 return redirect()->route('admin.user', $user_id)->with('message', 'Account has been successfully saved.');
             }
+
+        }
+    }
+    public function postUpdateUserBio($user_id, Request $request)
+    {
+        $user = User::Find($user_id);
+
+        $this->validate($request, [
+            'about' => 'required|min:20'
+        ]);
+
+        $user->about = $request['about'];
+
+        if($user->save()){
+            return redirect()->route('admin.user', $user_id)->with('message', 'The user\'s bio has been updated');
+        }else{
+            return redirect()->back->with(['message', 'There has been an error!']);
         }
     }
 
-    // Get groups
+    // Get all
     public function getUsers()
     {
         $users = User::orderBy('username', 'desc')->get();
@@ -95,7 +113,7 @@ class AdminController extends Controller
         ]);
     }
 
-    // Get single items
+    // Get single
     public function getUser($user_id)
     {
         $user = User::where('id', $user_id)->first();
@@ -126,6 +144,26 @@ class AdminController extends Controller
         return view('admin.report', [
             'report' => $report
         ]);
+    }
+
+    public function getDeleteComment($comment_id)
+    {
+        $comment = Comment::where('id', $comment_id)->first();
+
+        $notif = new Notification();
+        $notif->user_id = Auth::user()->id;
+        $notif->to = $comment->user_id;
+        $notif->type = 'comment.deleted';
+
+        if(Comment::where('id', $comment_id)->delete()){
+            if ($notif->save()) {
+                return redirect()->route('admin.comments')->with(['message' => 'Comment Successfully deleted.']);
+            }else{
+                return redirect()->route('admin.comments')->with(['message' => 'There was an error sending the notification but the comment was deleted.']);
+            }
+        }else {
+            return redirect()->route('admin.comment', $comment_id)->with(['message', 'There was an error.']);
+        }
     }
 
 

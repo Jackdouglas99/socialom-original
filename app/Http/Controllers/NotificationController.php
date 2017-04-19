@@ -39,6 +39,11 @@ class NotificationController extends Controller
             if($notif->update()) {
                 return redirect()->route('view.post', $notif->data);
             }
+        }elseif($notif->type == "comment.deleted"){
+            $notif->read_at = $time;
+            if($notif->update()) {
+                return redirect()->route('dashboard')->with('message', 'Sorry but you cannot view your comment as it was deleted by an admin. If you think this is an error please email us.');
+            }
         }
     }
 }

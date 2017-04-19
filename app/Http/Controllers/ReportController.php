@@ -5,6 +5,7 @@ use App\Post;
 use App\Report;
 use App\Comment;
 use App\Like;
+use App\Notification;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,6 @@ class ReportController extends Controller
         }
         return redirect()->route('dashboard')->with(['message' => $message]);
     }
-
     public function postReportAdmin($report_id, Request $request)
     {
         $report = Report::Find($report_id);

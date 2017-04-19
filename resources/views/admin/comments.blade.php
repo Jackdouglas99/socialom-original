@@ -6,16 +6,11 @@
 
 @section('content')
   <style>
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 550px}
-
-    /* Set gray background color and 100% height */
     .sidenav {
       background-color: #f1f1f1;
       height: 100%;
     }
-
-    /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
       .row.content {height: auto;}
     }
@@ -37,7 +32,7 @@
         <tbody>
           @foreach($comments as $comment)
           <tr>
-            <td><a href="">{{$comment->id}}</a></td>
+            <td><a href="{{route('admin.comment', $comment->id)}}">{{$comment->id}}</a></td>
             <td>{{$comment->user->username}}</td>
             <td><a href="{{route('admin.post', $comment->post->id)}}">{{$comment->post->id}}</a></td>
             <td>{{$comment->content}}</td>

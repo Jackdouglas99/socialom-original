@@ -110,19 +110,19 @@ Socialom
                         </div>
                     </div>
                     <div class="modal fade" id="{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-body">
-                            <div class="list-group">
-                              @foreach($post->likes as $like)
-                                <a href="{{route('profile', \App\User::where('id', $like->user_id)->first()->username)}}" target="_blank" class="list-group-item">
-                                  {{\App\User::where('id', $like->user_id)->first()->username}}
-                                </a>
-                                @endforeach
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="list-group">
+                                        @foreach($post->likes as $like)
+                                            <a href="{{route('profile', \App\User::where('id', $like->user_id)->first()->username)}}" target="_blank" class="list-group-item">
+                                                {{\App\User::where('id', $like->user_id)->first()->username}}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
                     </div>
                     @if (count($post->comments))
                         <ul class="list-group">

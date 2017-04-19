@@ -6,13 +6,7 @@
         <title>@yield('title')</title>
     </head>
     <body>
-        @if(\Request::route()->getName() != "suspended")
-          @if(Auth::user() && Auth::user()->suspended == 1)
-            <script type="text/javascript">
-                window.location = "{{route('suspended')}}";//here double curly bracket
-            </script>
-          @endif
-        @endif
+
         @include('includes.header')
             <div class="container" style="margin-top: -10px; height: auto; padding-bottom: 100px; !important;">
                 @yield('content')
@@ -20,6 +14,5 @@
 
         <script src="https://cdn.jackdouglas.co.uk/jquery-3.1.1.min.js"></script>
         <script src="https://cdn.jackdouglas.co.uk/bootstrap-3.3.7/js/bootstrap.js"></script>
-        <script src="{{ asset('src/js/app.js') }}"></script>
     </body>
 </html>
