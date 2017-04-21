@@ -44,6 +44,26 @@ class NotificationController extends Controller
             if($notif->update()) {
                 return redirect()->route('dashboard')->with('message', 'Sorry but you cannot view your comment as it was deleted by an admin. If you think this is an error please email us.');
             }
+        }elseif($notif->type == "post.reported"){
+            $notif->read_at = $time;
+            if($notif->update()) {
+                return redirect()->route('view.post', $notif->data);
+            }
+        }elseif($notif->type == "reported.post.deleted"){
+            $notif->read_at = $time;
+            if($notif->update()) {
+                return redirect()->route('dashboard')->with('message', 'Sorry but you cannot view your post as it was deleted by an admin. If you think this is an error please email us.');
+            }
+        }elseif($notif->type == "reporter.post.deleted"){
+            $notif->read_at = $time;
+            if($notif->update()) {
+                return redirect()->route('dashboard')->with('message', 'Sorry but you cannot view that post as it was deleted by an admin. If you think this is an error please email us.');
+            }
+        }elseif($notif->type == "admin.bio.updated"){
+            $notif->read_at = $time;
+            if($notif->update()) {
+                return redirect()->route('profile', User::where('id', $notif->to)->first()->username);
+            }
         }
     }
 }

@@ -33,45 +33,7 @@
                                 </span>
                             @endif
                         </a>
-                        <ul class="dropdown-menu">
-                            @if(count(\App\Notification::where('to', Auth::user()->id)->whereNull('read_at')->get()))
-                                @foreach(\App\Notification::where('to', Auth::user()->id)->whereNull('read_at')->get() as $notif)
-                                    @if($notif->type == "like")
-                                        <li>
-                                            <a href="{{route('read.notification', $notif->id)}}">
-                                                {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Liked your post.
-                                            </a>
-                                        </li>
-                                    @elseif($notif->type == "fRequest")
-                                        <li>
-                                            <a href="{{route('read.notification', $notif->id)}}">
-                                                {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Sent you a friend request.
-                                            </a>
-                                        </li>
-                                    @elseif($notif->type == "fRequestAccept")
-                                        <li>
-                                            <a href="{{route('read.notification', $notif->id)}}">
-                                                {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Accepted your friend request.
-                                            </a>
-                                        </li>
-                                    @elseif($notif->type == "comment")
-                                        <li>
-                                            <a href="{{route('read.notification', $notif->id)}}">
-                                                {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Commented your post.
-                                            </a>
-                                        </li>
-                                    @elseif($notif->type == "comment.deleted")
-                                        <li>
-                                            <a href="{{route('read.notification', $notif->id)}}">
-                                                {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} deleted your comment.
-                                            </a>
-                                        </li>
-                                    @endif
-                                @endforeach
-                            @else
-                                <li>You have no notifications</li>
-                            @endif
-                        </ul>
+                        @include('includes.notifcations')
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->first_name}} {{Auth::user()->last_name}} <span class="caret"></span></a>
@@ -83,22 +45,22 @@
                         </ul>
                     </li>
                     @if(Auth::user()->role != 0)
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></a>
-                        <ul class="dropdown-menu">
-                          @if(Auth::user()->role == 1)
-                            <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-                            <li><a href="{{route('admin.reports')}}">Reports</a></li>
-                          @elseif(Auth::user()->role == 2)
-                            <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{{route('admin.reports')}}">Manage Reports</a></li>
-                            <li><a href="{{route('admin.users')}}">Manage Users</a></li>
-                            <li><a href="{{route('admin.comments')}}">Manage Comments</a></li>
-                            <li><a href="{{route('admin.posts')}}">Manage Posts</a></li>
-                          @endif
-                        </ul>
-                      </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                            <ul class="dropdown-menu">
+                                @if(Auth::user()->role == 1)
+                                    <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+                                    <li><a href="{{route('admin.reports')}}">Reports</a></li>
+                                    @elseif(Auth::user()->role == 2)
+                                    <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{route('admin.reports')}}">Manage Reports</a></li>
+                                    <li><a href="{{route('admin.users')}}">Manage Users</a></li>
+                                    <li><a href="{{route('admin.comments')}}">Manage Comments</a></li>
+                                    <li><a href="{{route('admin.posts')}}">Manage Posts</a></li>
+                                @endif
+                            </ul>
+                        </li>
                     @endif
                 </ul>
             @endif

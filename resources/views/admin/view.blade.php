@@ -26,14 +26,14 @@
       <div class="row">
         <div class="col-sm-3">
           <div class="well">
-            <h4>Posts</h4>
-            <p>{{$post_count}}</p>
+            <h4>Users</h4>
+            <p>{{$user_count}}</p>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="well">
-            <h4>Users</h4>
-            <p>{{$user_count}}</p>
+            <h4>Posts</h4>
+            <p>{{$post_count}}</p>
           </div>
         </div>
         <div class="col-sm-3">
@@ -85,6 +85,7 @@
               @endforeach
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>

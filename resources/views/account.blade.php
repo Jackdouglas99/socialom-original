@@ -116,13 +116,13 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="privacy">
-                        <h1>Nothing in here</h1>
+                        <h1>This feature is coming soon</h1>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="notification">
-                        <h1>Nothing in here</h1>
+                        <h1>This feature is coming soon</h1>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="blocking">
-                        <h1>Nothing in here</h1>
+                        <h1>This feature is coming soon</h1>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,10 @@ Socialom
                 <li role="presentation" class="active"><a>News Feed</a></li>
                 <li role="presentation" class="disabled"><a>Messages</a></li>
             </ul>
-            <a href="{{route('terms')}}" class="text-muted">Terms</a> - <a href="{{route('privacy')}}" class="text-muted">Privacy</a><br><p class="text-muted">&copy; <a href="https://www.jackdouglas.co.uk" class="text-muted">Jack Douglas</a> 2017</p>
+            <a href="{{route('terms')}}" class="text-muted">Terms</a><br>
+            <p class="text-muted">
+                &copy; <a href="https://www.jackdouglas.co.uk" target="_blank" class="text-muted">Jack Douglas</a> 2017
+            </p>
         </div>
         <div class="col-md-8">
             <div class="panel panel-default">
@@ -45,10 +48,16 @@ Socialom
                         <a href="{{route('profile', $post->user->username)}}">
                             {{$post->user->first_name}} {{$post->user->last_name}}
                         </a>
-                        <small>at: {{$post->updated_at}}</small>
+                        <small>at: {{$post->updated_at}} GMT</small>
                         @if($post->user_id != Auth::user()->id)
                             <div class="pull-right">
                                 <a href="#" data-toggle="modal" data-target="#report-{{$post->id}}" href="#report-{{$post->id}}">Report post</a>
+                            </div>
+                        @endif
+                        @if(Auth::user() == $post->user)
+                            <div class="pull-right">
+                                <a href="#" class="edit">Edit</a>
+                                <a href="{{route('post.delete', ['post_id' => $post->id])}}">Delete</a>
                             </div>
                         @endif
                     </div>
@@ -73,10 +82,6 @@ Socialom
                             @endif
                             @if (!count($post->comments))
                                 <a role="button" data-toggle="collapse" href="#no-comments-{{$post->id}}" aria-expanded="false" aria-controls="no-comments-{{$post->id}}">Comment</a>
-                            @endif
-                            @if(Auth::user() == $post->user)
-                                <a href="#" class="edit">Edit</a>
-                                <a href="{{route('post.delete', ['post_id' => $post->id])}}">Delete</a>
                             @endif
                         </div>
                     </div>

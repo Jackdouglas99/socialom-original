@@ -76,8 +76,17 @@ class AdminController extends Controller
 
         $user->about = $request['about'];
 
+        $notif = new Notification();
+        $notif->user_id = Auth::user()->id;
+        $notif->to = $user_id;
+        $notif->type = 'admin.bio.updated';
+
         if($user->save()){
-            return redirect()->route('admin.user', $user_id)->with('message', 'The user\'s bio has been updated');
+            if($notif->save()) {
+                return redirect()->route('admin.user', $user_id)->with('message', 'The user\'s bio has been updated');
+            }else{
+                return redirect()->route('admin.user', $user_id)->with('message', 'There was an error!');
+            }
         }else{
             return redirect()->back->with(['message', 'There has been an error!']);
         }
@@ -91,26 +100,47 @@ class AdminController extends Controller
             'users' => $users
         ]);
     }
-    public function getPosts()
+    public function getPosts($user_id = null)
     {
-        $posts = Post::orderBy('updated_at', 'desc')->get();
-        return view('admin.posts')->with([
-            'posts' => $posts
-        ]);
+        if($user_id){
+            $posts = Post::where('user_id', $user_id)->orderBy('updated_at', 'desc')->get();
+            return view('admin.posts')->with([
+                'posts' => $posts
+            ]);
+        }else {
+            $posts = Post::orderBy('updated_at', 'desc')->get();
+            return view('admin.posts')->with([
+                'posts' => $posts
+            ]);
+        }
     }
-    public function getComments()
+    public function getComments($user_id = null)
     {
-        $comments = Comment::orderBy('created_at', 'desc')->get();
-        return view('admin.comments', [
-            'comments' => $comments
-        ]);
+        if($user_id){
+            $comments = Comment::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
+            return view('admin.comments', [
+                'comments' => $comments
+            ]);
+        }else {
+            $comments = Comment::orderBy('created_at', 'desc')->get();
+            return view('admin.comments', [
+                'comments' => $comments
+            ]);
+        }
     }
-    public function getReports()
+    public function getReports($user_id = null)
     {
-        $reports = Report::orderBy('created_at', 'desc')->get();
-        return view('admin.reports', [
-            'reports' => $reports
-        ]);
+        if($user_id){
+            $reports = Report::where('reporter', $user_id)->orWhere('reported', $user_id)->orderBy('created_at', 'desc')->get();
+            return view('admin.reports', [
+                'reports' => $reports
+            ]);
+        }else {
+            $reports = Report::orderBy('created_at', 'desc')->get();
+            return view('admin.reports', [
+                'reports' => $reports
+            ]);
+        }
     }
 
     // Get single

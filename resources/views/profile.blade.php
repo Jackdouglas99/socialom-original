@@ -117,11 +117,7 @@
                 @if($user->id != Auth::user()->id)
                   @if(Auth::user()->role != 0)
                     <div class="panel-body">
-                      @if(Auth::user()->role == 1)
-                        <a href="#" class="btn btn-primary">View Reports</a>
-                      @elseif(Auth::user()->role == 2)
-                        <a href="#" class="btn btn-primary">Edit Profile</a> <a href="#" class="btn btn-primary">View Reports</a>
-                      @endif
+                        <a href="{{route('admin.user', $user->id)}}" class="btn btn-primary">Edit Profile</a> <a href="{{route('admin.reports', $user->id)}}" class="btn btn-primary">View Reports</a>
                     </div>
                   @endif
                 @endif
@@ -154,6 +150,12 @@
                                 <a href="#" data-toggle="modal" data-target="#report-{{$post->id}}" href="#report-{{$post->id}}">Report post</a>
                             </div>
                         @endif
+                        @if(Auth::user() == $post->user)
+                            <div class="pull-right">
+                                <a href="#" class="edit">Edit</a>
+                                <a href="{{route('post.delete', ['post_id' => $post->id])}}">Delete</a>
+                            </div>
+                        @endif
                     </div>
                     <div class="panel-body" id="postText">
                         <p class="postContent">
@@ -176,10 +178,6 @@
                             @endif
                             @if (!count($post->comments))
                                 <a role="button" data-toggle="collapse" href="#no-comments-{{$post->id}}" aria-expanded="false" aria-controls="no-comments-{{$post->id}}">Comment</a>
-                            @endif
-                            @if(Auth::user() == $post->user)
-                                <a href="#" class="edit">Edit</a>
-                                <a href="{{route('post.delete', ['post_id' => $post->id])}}">Delete</a>
                             @endif
                         </div>
                     </div>

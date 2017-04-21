@@ -18,9 +18,6 @@ Route::get('/logout', [
 Route::get('/terms', function(){
     return view('terms');
 })->name('terms');
-Route::get('/privacy', function(){
-    return view('privacy');
-})->name('privacy');
 
 Route::group(['middleware' => 'auth'], function () {
     // General
@@ -119,15 +116,15 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'AdminController@getUsers',
             'as' => 'admin.users'
         ]);
-        Route::get('/posts', [
+        Route::get('/posts/{user_id?}', [
             'uses' => 'AdminController@getPosts',
             'as' => 'admin.posts'
         ]);
-        Route::get('/comments', [
+        Route::get('/comments/{user_id?}', [
             'uses' => 'AdminController@getComments',
             'as' => 'admin.comments'
         ]);
-        Route::get('/reports', [
+        Route::get('/reports/{user_id?}', [
             'uses' => 'AdminController@getReports',
             'as' => 'admin.reports'
         ]);
@@ -168,7 +165,6 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'AdminController@getDashboard',
         'as' => 'admin.dashboard'
     ]);
-
 });
 
 // Email Sending
