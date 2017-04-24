@@ -5,16 +5,7 @@
 @endsection
 
 @section('content')
-    <style>
-        .row.content {height: 550px}
-        .sidenav {
-            background-color: #f1f1f1;
-            height: 100%;
-        }
-        @media screen and (max-width: 767px) {
-            .row.content {height: auto;}
-        }
-    </style>
+    <style>.row.content {height: 550px}.sidenav {background-color: #f1f1f1;height: 100%;}@media screen and (max-width: 767px) {.row.content {height: auto;}}</style>
     <div class="row content">
         @include('admin.includes.sidebar')
         <div class="col-sm-9">

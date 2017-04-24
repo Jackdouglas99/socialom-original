@@ -64,6 +64,11 @@ class NotificationController extends Controller
             if($notif->update()) {
                 return redirect()->route('profile', User::where('id', $notif->to)->first()->username);
             }
+        }elseif($notif->type == "message.added"){
+            $notif->read_at = $time;
+            if($notif->update()) {
+                return redirect()->route('messages.get.chat', $notif->data);
+            }
         }
     }
 }

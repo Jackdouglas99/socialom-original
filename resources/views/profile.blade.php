@@ -113,6 +113,7 @@
                             To set your bio go to your account settings. Or <a href="{{route('account')}}">Click Here</a>
                         @endif
                     @endif
+                    <br><br><a class="btn btn-md btn-primary" href="{{route('messages.new.chat', $user->username)}}">Send message</a>
                 </div>
                 @if($user->id != Auth::user()->id)
                   @if(Auth::user()->role != 0)

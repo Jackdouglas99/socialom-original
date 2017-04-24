@@ -55,6 +55,12 @@
                         {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Updated your bio as it was going against our guidelines.
                     </a>
                 </li>
+            @elseif($notif->type == "message.added")
+                <li>
+                    <a href="{{route('read.notification', $notif->id)}}">
+                        {{\App\User::where('id', $notif->user_id)->first()->first_name}} {{\App\User::where('id', $notif->user_id)->first()->last_name}} Sent you a message.
+                    </a>
+                </li>
             @endif
         @endforeach
     @else

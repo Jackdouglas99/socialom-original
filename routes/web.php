@@ -111,7 +111,7 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     // Admin
-    Route::group(['prefix' => 'admin'], function () {
+    Route::group(['prefix' => 'admin'], function(){
         Route::get('/users', [
             'uses' => 'AdminController@getUsers',
             'as' => 'admin.users'
@@ -165,6 +165,32 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'AdminController@getDashboard',
         'as' => 'admin.dashboard'
     ]);
+
+    // Messages
+    Route::group(['prefix' => 'messages'], function(){
+        Route::get('/', [
+            'uses' => 'MessagesController@getIndex',
+            'as' => 'messages.index'
+        ]);
+        Route::get('/new/{username?}', [
+            'uses' => 'MessagesController@getNewChat',
+            'as' => 'messages.new.chat'
+        ]);
+        Route::post('/new/send', [
+            'uses' => 'MessagesController@postNewChat',
+            'as' => 'messages.new.chat.post'
+        ]);
+        Route::group(['prefix' => 'chat'], function(){
+            Route::get('/{chat_id}', [
+                'uses' => 'MessagesController@getChat',
+                'as' => 'messages.get.chat'
+            ]);
+            Route::post('/{chat_id}/send', [
+                'uses' => 'MessagesController@postSendChat',
+                'as' => 'messages.chat.send'
+            ]);
+        });
+    });
 });
 
 // Email Sending

@@ -36,6 +36,14 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany('App\Report');
     }
+    public function messages()
+    {
+        return $this->hasMany('App\Message');
+    }
+    public function chats()
+    {
+        return $this->hasMany('App\Chat');
+    }
 
     protected $fillable = ['username', 'email', 'password', 'first_name', 'last_name'];
 }

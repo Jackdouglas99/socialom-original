@@ -20,7 +20,7 @@ Socialom
                     </a>
                 </li>
                 <li role="presentation" class="active"><a>News Feed</a></li>
-                <li role="presentation" class="disabled"><a>Messages</a></li>
+                <li role="presentation"><a href="{{route('messages.index')}}">Messages</a></li>
             </ul>
             <a href="{{route('terms')}}" class="text-muted">Terms</a><br>
             <p class="text-muted">

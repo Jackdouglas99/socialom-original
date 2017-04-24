@@ -95,7 +95,7 @@ class AdminController extends Controller
     // Get all
     public function getUsers()
     {
-        $users = User::orderBy('username', 'desc')->get();
+        $users = User::paginate(10);
         return view('admin.users')->with([
             'users' => $users
         ]);
@@ -103,12 +103,12 @@ class AdminController extends Controller
     public function getPosts($user_id = null)
     {
         if($user_id){
-            $posts = Post::where('user_id', $user_id)->orderBy('updated_at', 'desc')->get();
+            $posts = Post::where('user_id', $user_id)->orderBy('updated_at', 'desc')->paginate(10);
             return view('admin.posts')->with([
                 'posts' => $posts
             ]);
-        }else {
-            $posts = Post::orderBy('updated_at', 'desc')->get();
+        }else{
+            $posts = Post::orderBy('updated_at', 'desc')->paginate(10);
             return view('admin.posts')->with([
                 'posts' => $posts
             ]);
@@ -117,12 +117,12 @@ class AdminController extends Controller
     public function getComments($user_id = null)
     {
         if($user_id){
-            $comments = Comment::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
+            $comments = Comment::where('user_id', $user_id)->orderBy('created_at', 'desc')->paginate(10);
             return view('admin.comments', [
                 'comments' => $comments
             ]);
-        }else {
-            $comments = Comment::orderBy('created_at', 'desc')->get();
+        }else{
+            $comments = Comment::orderBy('created_at', 'desc')->paginate(10);
             return view('admin.comments', [
                 'comments' => $comments
             ]);
@@ -131,12 +131,12 @@ class AdminController extends Controller
     public function getReports($user_id = null)
     {
         if($user_id){
-            $reports = Report::where('reporter', $user_id)->orWhere('reported', $user_id)->orderBy('created_at', 'desc')->get();
+            $reports = Report::where('reporter', $user_id)->orWhere('reported', $user_id)->orderBy('created_at', 'desc')->paginate(10);
             return view('admin.reports', [
                 'reports' => $reports
             ]);
-        }else {
-            $reports = Report::orderBy('created_at', 'desc')->get();
+        }else{
+            $reports = Report::orderBy('created_at', 'desc')->paginate(10);
             return view('admin.reports', [
                 'reports' => $reports
             ]);
@@ -195,6 +195,5 @@ class AdminController extends Controller
             return redirect()->route('admin.comment', $comment_id)->with(['message', 'There was an error.']);
         }
     }
-
 
 }
