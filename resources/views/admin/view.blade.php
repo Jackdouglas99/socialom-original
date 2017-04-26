@@ -72,6 +72,9 @@
               @foreach($users_recent as $recent_user)
                 <div class="well">
                   {{$recent_user->username}}
+                  @if($recent_user->role == 2)
+                  <span class="label label-primary">SA</span>
+                  @endif
                 </div>
               @endforeach
             </div>

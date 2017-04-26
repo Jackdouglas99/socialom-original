@@ -180,6 +180,7 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'MessagesController@postNewChat',
             'as' => 'messages.new.chat.post'
         ]);
+        //Chat
         Route::group(['prefix' => 'chat'], function(){
             Route::get('/{chat_id}', [
                 'uses' => 'MessagesController@getChat',
@@ -189,6 +190,38 @@ Route::group(['middleware' => 'auth'], function () {
                 'uses' => 'MessagesController@postSendChat',
                 'as' => 'messages.chat.send'
             ]);
+            Route::get('/{chat_id}/delete', [
+                'uses' => 'MessagesController@getDeleteChat',
+                'as' => 'messages.chat.delete'
+            ]);
+        });
+    });
+});
+
+Route::group(['prefix' => 'api'], function(){
+    Route::group(['prefix' => 'user'], function(){
+        Route::get('/{user_id}', function($user_id){
+            $likes = App\Like::where('user_id', $user_id)->get();
+            $comments = App\Comment::where('user_id', $user_id)->get();
+            $posts = App\Post::where('user_id', $user_id)->get();
+            $user = App\User::select('id', 'username', 'first_name', 'last_name', 'email', 'profile_img', 'profile_banner', 'about', 'role', 'suspended', 'birth_day', 'gender', 'created_at', 'updated_at')->where('id', $user_id)->get();
+            return response()->json(['user' => $user, 'posts' => $posts, 'comments' => $comments, 'likes' => $likes]);
+        });
+
+    });
+
+    Route::group(['prefix' => 'post'], function(){
+        Route::get('/{post_id}', function($post_id){
+            return App\Post::where('id', $post_id)->get();
+        });
+        Route::get('/{post_id}/comments', function($post_id){
+            return App\Comment::where('post_id', $post_id)->get();
+        });
+    });
+
+    Route::group(['prefix' => 'comment'], function(){
+        Route::get('/{comment_id}', function($comment_id){
+            return App\Comment::where('id', $comment_id)->get();
         });
     });
 });

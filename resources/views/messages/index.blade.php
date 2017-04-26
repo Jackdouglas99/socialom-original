@@ -22,6 +22,9 @@
             color: #ffffff;
             background: #286090;
         }
+        .plus:visited {
+            text-decoration: none;
+        }
         .plus{
             color: #ffffff;
             position: absolute;
@@ -66,7 +69,7 @@
                             @endif
                             <div class="caption">
                                 <h3>{{\App\User::where('id', $chat->user_id_to)->first()->username}}</h3>
-                                <p><a href="{{route('messages.get.chat', $chat->id)}}" class="btn btn-primary" role="button">View Chat</a> <a href="#" class="btn btn-danger" role="button">Delete Chat</a></p>
+                                <p><a href="{{route('messages.get.chat', $chat->id)}}" class="btn btn-primary" role="button">View Chat</a> <a href="{{route('messages.chat.delete', $chat->id)}}" class="btn btn-danger" role="button">Delete Chat</a></p>
                             </div>
                         </div>
                     </div>
@@ -80,7 +83,7 @@
                             @endif
                             <div class="caption">
                                 <h3>{{\App\User::where('id', $chat->user_id_from)->first()->username}}</h3>
-                                <p><a href="{{route('messages.get.chat', $chat->id)}}" class="btn btn-primary" role="button">View Chat</a> <a href="#" class="btn btn-danger" role="button">Delete Chat</a></p>
+                                <p><a href="{{route('messages.get.chat', $chat->id)}}" class="btn btn-primary" role="button">View Chat</a> <a href="{{route('messages.chat.delete', $chat->id)}}" class="btn btn-danger" role="button">Delete Chat</a></p>
                             </div>
                         </div>
                     </div>

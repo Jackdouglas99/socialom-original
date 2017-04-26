@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{route('dashboard')}}"><img src="{{ asset('src/logo.png') }}" alt="" style="margin-top:-15px;"></a>
+            <a class="navbar-brand" href="{{route('dashboard')}}"><img src="https://cdn.jackdouglas.co.uk/logo.png" alt="" style="margin-top:-15px;"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

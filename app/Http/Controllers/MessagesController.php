@@ -72,9 +72,13 @@ class MessagesController extends Controller
             'message' => 'required|max:1000'
         ]);
 
-        $user = User::where('username', $request['username'])->first();
-        if(!count($user)){
-            return redirect()->route('dashboard')->with(['message' => 'Profile dose not exist.']);
+        if($request['username'] == Auth::user()->username){
+            return redirect()->route('messages.index')->with(['message' => 'Error: sorry but you cannot send a message to your self.']);
+        }else{
+            $user = User::where('username', $request['username'])->first();
+            if(!count($user)){
+                return redirect()->back()->with(['message' => 'User dose not exist.']);
+            }
         }
 
         $chat = new Chat();
@@ -104,5 +108,14 @@ class MessagesController extends Controller
         }else{
             return redirect()->route('messages.new')->with(['message' => 'Error: could not start chat session']);
         }
+    }
+
+    public function getDeleteChat($chat_id)
+    {
+      $chat = Chat::where('id', $chat_id)->first();
+      Message::where('chat_id', $chat_id)->delete();
+      $chat->delete();
+
+      return redirect()->route('messages.index')->with('message', 'Chat has been deleted.');
     }
 }

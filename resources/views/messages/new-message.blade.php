@@ -6,6 +6,10 @@
 
 @section('content')
     @include('includes.message-block')
+    <ol class="breadcrumb">
+        <li><a href="{{route('messages.index')}}">Messages</a></li>
+        <li class="active">New message</li>
+    </ol>
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <div class="panel panel-default">
@@ -15,9 +19,9 @@
                     {{csrf_field()}}
                     <div class="form-group {{$errors->has('username') ? 'has-error' : ''}}">
                         @if(isset($username))
-                            <input type="text" name="username" class="form-control" placeholder="Username"  value="{{$username}}">
+                            <input type="text" name="username" class="form-control" placeholder="Username"  value="{{$username}}" autofocus>
                         @else
-                            <input type="text" name="username" class="form-control" placeholder="Username"  value="{{Request::old('username')}}">
+                            <input type="text" name="username" class="form-control" placeholder="Username"  value="{{Request::old('username')}}" autofocus>
                         @endif
                     </div>
                     <div class="form-group {{$errors->has('message') ? 'has-error' : ''}}">
